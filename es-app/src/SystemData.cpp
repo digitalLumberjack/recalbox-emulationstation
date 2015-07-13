@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Settings.h"
 #include "FileSorts.h"
+#include "Util.h"
 
 std::vector<SystemData*> SystemData::sSystemVector;
 
@@ -22,13 +23,16 @@ SystemData::SystemData(const std::string& name, const std::string& fullName, con
 {
 	mName = name;
 	mFullName = fullName;
-	mStartPath = startPath;
+	mStartPath = getExpandedPath(startPath);
 
-	//expand home symbol if the startpath contains ~
-	if(mStartPath[0] == '~')
+	// make it absolute if needed
 	{
-		mStartPath.erase(0, 1);
-		mStartPath.insert(0, getHomePath());
+		const std::string defaultRomsPath = getExpandedPath(Settings::getInstance()->getString("DefaultRomsPath"));
+
+		if (!defaultRomsPath.empty())
+		{
+			mStartPath = fs::absolute(mStartPath, defaultRomsPath).generic_string();
+		}
 	}
 
 	mSearchExtensions = extensions;
