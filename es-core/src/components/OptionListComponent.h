@@ -242,7 +242,7 @@ public:
 		if(selected.size() == 1){
                     return selected.at(0);
                 }else {
-                    return NULL;
+                    return T();
                 }
 	}
         
