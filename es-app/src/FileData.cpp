@@ -1,5 +1,6 @@
 #include "FileData.h"
 #include "SystemData.h"
+#include "Log.h"
 
 namespace fs = boost::filesystem;
 
@@ -157,4 +158,66 @@ void FileData::sort(ComparisonFunction& comparator, bool ascending)
 void FileData::sort(const SortType& type)
 {
 	sort(*type.comparisonFunction, type.ascending);
+}
+
+void FileData::populateFolder(FileData* folder, const std::vector<std::string>& searchExtensions, SystemData* systemData)
+{
+	const fs::path& folderPath = folder->getPath();
+	if(!fs::is_directory(folderPath))
+	{
+		LOG(LogWarning) << "Error - folder with path \"" << folderPath << "\" is not a directory!";
+		return;
+	}
+
+	const std::string folderStr = folderPath.generic_string();
+
+	//make sure that this isn't a symlink to a thing we already have
+	if(fs::is_symlink(folderPath))
+	{
+		//if this symlink resolves to somewhere that's at the beginning of our path, it's gonna recurse
+		if(folderStr.find(fs::canonical(folderPath).generic_string()) == 0)
+		{
+			LOG(LogWarning) << "Skipping infinitely recursive symlink \"" << folderPath << "\"";
+			return;
+		}
+	}
+
+	fs::path filePath;
+	std::string extension;
+	bool isGame;
+	for(fs::directory_iterator end, dir(folderPath); dir != end; ++dir)
+	{
+		filePath = (*dir).path();
+
+		if(filePath.stem().empty())
+			continue;
+
+		//this is a little complicated because we allow a list of extensions to be defined (delimited with a space)
+		//we first get the extension of the file itself:
+		extension = filePath.extension().string();
+
+		//fyi, folders *can* also match the extension and be added as games - this is mostly just to support higan
+		//see issue #75: https://github.com/Aloshi/EmulationStation/issues/75
+
+		isGame = false;
+		if(std::find(searchExtensions.begin(), searchExtensions.end(), extension) != searchExtensions.end()
+                        && filePath.filename().string().compare(0, 1, ".") != 0 ){
+			FileData* newGame = new FileData(GAME, filePath.generic_string(), systemData);
+			folder->addChild(newGame);
+			isGame = true;
+		}
+
+		//add directories that also do not match an extension as folders
+		if(!isGame && fs::is_directory(filePath))
+		{
+			FileData* newFolder = new FileData(FOLDER, filePath.generic_string(), systemData);
+			populateFolder(newFolder, searchExtensions, systemData);
+
+			//ignore folders that do not contain games
+			if(newFolder->getChildren().size() == 0)
+				delete newFolder;
+			else
+				folder->addChild(newFolder);
+		}
+	}
 }
