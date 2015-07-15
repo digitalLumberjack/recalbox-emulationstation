@@ -160,7 +160,7 @@ void SystemData::launchGame(Window* window, FileData* game)
 
 void SystemData::populateFolder(FileData* folder)
 {
-	FileData::populateFolder(folder, mSearchExtensions, this);
+	FileData::populateRecursiveFolder(folder, mSearchExtensions, this);
 }
 
 std::vector<std::string> readList(const std::string& str, const char* delims = " \t\r\n,")

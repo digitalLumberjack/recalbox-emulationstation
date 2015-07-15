@@ -68,6 +68,7 @@ public:
 	void sort(const SortType& type);
 
 	static void populateFolder(FileData* folder, const std::vector<std::string>& searchExtensions = std::vector<std::string>(), SystemData* systemData = nullptr);
+	static void populateRecursiveFolder(FileData* folder, const std::vector<std::string>& searchExtensions = std::vector<std::string>(), SystemData* systemData = nullptr);
 
 	MetaDataList metadata;
 

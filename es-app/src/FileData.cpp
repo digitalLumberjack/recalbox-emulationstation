@@ -64,7 +64,7 @@ FileData::~FileData()
 std::string FileData::getCleanName() const
 {
 	std::string stem = mPath.stem().generic_string();
-	if(mSystem && mSystem->hasPlatformId(PlatformIds::ARCADE) || mSystem->hasPlatformId(PlatformIds::NEOGEO))
+	if(mSystem && (mSystem->hasPlatformId(PlatformIds::ARCADE) || mSystem->hasPlatformId(PlatformIds::NEOGEO)))
 		stem = PlatformIds::getCleanMameName(stem.c_str());
         return stem;
 	//return removeParenthesis(stem);
@@ -160,7 +160,7 @@ void FileData::sort(const SortType& type)
 	sort(*type.comparisonFunction, type.ascending);
 }
 
-void FileData::populateFolder(FileData* folder, const std::vector<std::string>& searchExtensions, SystemData* systemData)
+void FileData::populateRecursiveFolder(FileData* folder, const std::vector<std::string>& searchExtensions, SystemData* systemData)
 {
 	const fs::path& folderPath = folder->getPath();
 	if(!fs::is_directory(folderPath))
@@ -200,8 +200,8 @@ void FileData::populateFolder(FileData* folder, const std::vector<std::string>& 
 		//see issue #75: https://github.com/Aloshi/EmulationStation/issues/75
 
 		isGame = false;
-		if(std::find(searchExtensions.begin(), searchExtensions.end(), extension) != searchExtensions.end()
-                        && filePath.filename().string().compare(0, 1, ".") != 0 ){
+		if((searchExtensions.empty() && !fs::is_directory(filePath)) || (std::find(searchExtensions.begin(), searchExtensions.end(), extension) != searchExtensions.end()
+                        && filePath.filename().string().compare(0, 1, ".") != 0)){
 			FileData* newGame = new FileData(GAME, filePath.generic_string(), systemData);
 			folder->addChild(newGame);
 			isGame = true;
@@ -211,7 +211,7 @@ void FileData::populateFolder(FileData* folder, const std::vector<std::string>& 
 		if(!isGame && fs::is_directory(filePath))
 		{
 			FileData* newFolder = new FileData(FOLDER, filePath.generic_string(), systemData);
-			populateFolder(newFolder, searchExtensions, systemData);
+			populateRecursiveFolder(newFolder, searchExtensions, systemData);
 
 			//ignore folders that do not contain games
 			if(newFolder->getChildren().size() == 0)
