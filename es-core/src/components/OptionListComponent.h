@@ -269,6 +269,10 @@ public:
 		onSelectedChanged();
 	}
 
+	inline void setSelectedChangedCallback(const std::function<void(const T&)>& callback) {
+		mSelectedChangedCallback = callback;
+	}
+
 private:
 	unsigned int getSelectedId()
 	{
@@ -315,6 +319,10 @@ private:
 				}
 			}
 		}
+
+		if (mSelectedChangedCallback) {
+			mSelectedChangedCallback(mEntries.at(getSelectedId()).object);
+		}
 	}
 
 	std::vector<HelpPrompt> getHelpPrompts() override
@@ -335,4 +343,5 @@ private:
 	ImageComponent mRightArrow;
 
 	std::vector<OptionListData> mEntries;
+	std::function<void(const T&)> mSelectedChangedCallback;
 };
