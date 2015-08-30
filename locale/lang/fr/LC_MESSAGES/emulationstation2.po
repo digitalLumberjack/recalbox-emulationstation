@@ -354,120 +354,120 @@ msgstr "VOUS ALLEZ CONFIGURER UNE MANETTE. SI VOUS N'AVEZ QU'UN JOYSTICK OU JUST
 
 #TEXT EDITING
 msgid "EDIT"
-msgstr "EDITER"
+msgstr "BEARBEITEN"
 msgid "STOP EDITING"
-msgstr "ARRETER EDITION"
+msgstr "BEARBEITEN ABBRECHEN"
 msgid "MOVE CURSOR"
-msgstr "BOUGER LE CURSEUR"
+msgstr "CURSOR BEWEGEN"
 msgid "DISCARD CHANGES"
-msgstr "ANNULER MODIFICATIONS"
+msgstr "ÄNDERUNGEN VERWERFEN"
 
 # MISSING SCRAPPER TRANSLATIONS
-msgid "Only missing image"
-msgstr "Seulement images manquantes"
+msgid "Only missing images"
+msgstr "Nur fehlende Bilder"
 
 msgid "All Games"
-msgstr "Tous les jeux"
+msgstr "Alle Spiele"
 
 msgid "accept"
-msgstr "ACCEPTER"
+msgstr "AKZEPTIEREN"
 
 msgid " SELECTED"
-msgstr " SÉLECTIONNÉS"
+msgstr " AUSGEWÄHLT"
 
 msgid "accept result"
-msgstr "accepter"
+msgstr "Ergebnis akzeptieren"
 
 msgid "stop (progress saved)"
-msgstr "stop (progrès sauvegardé)"
+msgstr "stop (Fortschritt gespeichert)"
 
 msgid "search"
-msgstr "rechercher"
+msgstr "suche"
 
 msgid "GAMES"
-msgstr "JEUX"
+msgstr "SPIELE"
 
 msgid " OF "
-msgstr " SUR "
+msgstr " AUF "
 
 msgid "NO GAMES WERE SCRAPED."
-msgstr "AUCUN JEU SCRAPPÉ"
+msgstr "ES WURDEN KEINE SPIELE GESCRAPED."
 
 msgid " SUCCESSFULLY SCRAPED!"
-msgstr " SCRAPPÉS !"
+msgstr " SCRAPING ERFOLGREICH!"
 
 msgid " SKIPPED."
-msgstr " PASSÉS."
+msgstr " ÜBERSPRUNGEN."
 
 # FAVORITES
 msgid "FAVORITES ONLY"
-msgstr "FAVORIS SEULEMENT"
+msgstr "NUR FAVORITEN"
 
 
 msgid "FAVORITE"
-msgstr "FAVORIS"
+msgstr "FAVORIT"
 
 msgid "enter favorite"
-msgstr "entrer favoris"
+msgstr "Favoriten eingeben"
 
 # NEW SETTINGS ORGANIZATION
 msgid "UPDATES"
-msgstr "MISES A JOUR"
+msgstr "AKTUALISIERUNGEN"
 
 msgid "AUTO UPDATES"
-msgstr "MISES A JOUR AUTO"
+msgstr "AUTOMATISCHE AKTUALISIERUNGEN"
 
 msgid "START UPDATE"
-msgstr "LANCER LA MISE A JOUR"
+msgstr "STARTE AKTUALISIERUNG"
 
 msgid "KODI SETTINGS"
-msgstr "OPTIONS KODI"
+msgstr "KODI-EINSTELLUNGEN"
 
 msgid "ENABLE KODI"
-msgstr "ACTIVER KODI"
+msgstr "KODI AKTIVIEREN"
 
 msgid "KODI AT START"
-msgstr "AUTO DEMARRAGE DE KODI"
+msgstr "KODI BEIM START"
 
 msgid "START KODI WITH X"
-msgstr "X POUR LANCER KODI"
+msgstr "KODI MIT X STARTEN"
 
 msgid "GAMES SETTINGS"
-msgstr "OPTIONS DES JEUX"
+msgstr "SPIEL-EINSTELLUNGEN"
 
 msgid "REWIND"
-msgstr "REMBOBINAGE"
+msgstr "RÜCKWÄRTS"
 
 msgid "CONTROLLERS SETTINGS"
-msgstr "OPTIONS MANETTES"
+msgstr "CONTROLLER-EINSTELLUNGEN"
 
 msgid "FRONTEND MUSIC"
-msgstr "MUSIQUE DE FOND"
+msgstr "FRONTEND MUSIK"
 
 msgid "HOSTNAME"
-msgstr "NOM SUR LE RESEAU"
+msgstr "NETZWERKNAME"
 
 msgid "CONNECTED"
-msgstr "CONNECTÉ"
+msgstr "VERBUNDEN"
 
 msgid "NOT CONNECTED"
-msgstr "DÉCONNECTÉ"
+msgstr "NICHT VERBUNDEN"
 
 msgid "LOADING..."
-msgstr "CHARGEMENT..."
+msgstr "LADE..."
 
 # Bluetooth
 msgid "CONTROLLER PAIRED"
-msgstr "MANETTE ASSOCIÉE"
+msgstr "CONTROLLER VERBUNDEN"
 
 msgid "UNABLE TO PAIR CONTROLLER"
-msgstr "IMPOSSIBLE D'ASSOCIER LA MANETTE"
+msgstr "VERBINDUNG MIT CONTROLLER FEHLGESCHLAGEN"
 
 msgid "AN ERROR OCCURED"
-msgstr "UNE ERREUR EST SURVENUE"
+msgstr "EIN FEHLER IST AUFGETRETEN"
 
 msgid "NO CONTROLLERS FOUND"
-msgstr "AUCUNE MANETTE DÉTÉCTÉE"
+msgstr "KEIN CONTROLLER GEFUNDEN"
 
 msgid "PAIR A BLUETOOTH CONTROLLER"
-msgstr "ASSOCIER UNE MANETTE BLUETOOTH"
+msgstr "EINEN BLUETOOTH CONTROLLER VERBINDEN"
