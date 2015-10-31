@@ -13,7 +13,7 @@
 #include "animations/LambdaAnimation.h"
 
 #include "AudioManager.h"
-
+#include "RecalboxSystem.h"
 
 ViewController* ViewController::sInstance = NULL;
 
@@ -331,6 +331,18 @@ bool ViewController::input(InputConfig* config, Input input)
 		return true;
 	}
 
+	if(config->isMappedTo("select", input) && input.value != 0)
+	{
+	  mWindow->pushGui(new GuiMsgBox(mWindow, "REALLY SHUTDOWN?", "YES",
+					 [] {
+					   if (RecalboxSystem::getInstance()->shutdown() != 0)  {
+					     LOG(LogWarning) <<
+					       "Shutdown terminated with non-zero result!";
+					   }
+					 }, "NO", nullptr));
+	    return true;
+	}
+	
 	if(mCurrentView)
 		return mCurrentView->input(config, input);
 
