@@ -785,3 +785,6 @@ msgstr ""
 
 msgid "FAST SHUTDOWN SYSTEM"
 msgstr ""
+
+msgid "INTEGER SCALE"
+msgstr ""
