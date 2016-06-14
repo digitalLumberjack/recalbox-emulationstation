@@ -391,6 +391,19 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                  shaders_choices->add(_("RETRO"), "retro", currentShader == "retro");
                  s->addWithLabel(_("SHADERS SET"), shaders_choices);
 
+                 if (RecalboxConf::getInstance()->get("global.shaderset") != "none") {
+
+                         // Integer scale
+                         auto integerscale_enabled = std::make_shared<SwitchComponent>(mWindow);
+                         integerscale_enabled->setState(RecalboxConf::getInstance()->get("global.integerscale") == "1");
+                         s->addWithLabel(_("INTEGER SCALE"), integerscale_enabled);
+                         s->addSaveFunc([integerscale_enabled] {
+                             RecalboxConf::getInstance()->set("global.integerscale", integerscale_enabled->getState() ? "1" : "0");
+                             RecalboxConf::getInstance()->saveRecalboxConf();
+                         });
+                         
+                 }
+
                  if (RecalboxConf::getInstance()->get("system.es.menu") != "bartop") {
 
                      // Retroachievements
