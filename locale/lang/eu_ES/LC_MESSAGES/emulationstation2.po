@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Emulationstation 2.0RC1 BASQUE po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-26 22:02+0100\n"
-"PO-Revision-Date: 2015-08-14 13:00+0100\n"
+"PO-Revision-Date: 2016-11-12 16:07+0100\n"
 "Last-Translator: Xabier Calvo <xabi.calvo@gmail.com>\n"
 "Language-Team: BASQUE\n"
 "Language: eu\n"
@@ -78,10 +78,9 @@ msgstr "%i/%i JOKOA"
 
 msgid ""
 "WE CAN'T FIND ANY SYSTEMS!\n"
-"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND "
-"YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
+"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
 "\n"
-"VISIT RECALBOX.FR FOR MORE INFORMATION."
+"VISIT RECALBOX.COM FOR MORE INFORMATION."
 msgstr ""
 "EZ DA JOKORIK AURKITU SISTEMAN !\n"
 "MESEDEZ, JARRAITU ARGIBIDEAK JOKOAK GEHITZEKO.\n"
@@ -91,14 +90,14 @@ msgstr ""
 #, c-format
 msgid "%i GAME SUCCESSFULLY SCRAPED!"
 msgid_plural "%i GAMES SUCCESSFULLY SCRAPED!"
-msgstr[0] "%i JOKOAREN DATUAK ONGI LORTUAK!"
-msgstr[1] "%i JOKOEN DATUAK ONGI LORTUAK!"
+msgstr[0] "JOKO %iEN DATUAK ONGI LORTUAK!"
+msgstr[1] "%i JOKOREN DATUAK ONGI LORTUAK!"
 
 #, c-format
 msgid "%i GAME SKIPPED."
 msgid_plural "%i GAMES SKIPPED."
-msgstr[0] "%i JOKO TXANDAPASA EGINDA"
-msgstr[1] "%I JOKO TXANDAPASA EGINDA"
+msgstr[0] "JOKO %i TXANDAPASA EGINDA"
+msgstr[1] "%i JOKO TXANDAPASA EGINDA"
 
 msgid "OK"
 msgstr "ADOS"
@@ -152,7 +151,6 @@ msgstr "BERTSIOA"
 msgid "DISK USAGE"
 msgstr "DISKO ERABILERA"
 
-#, fuzzy
 msgid "STORAGE DEVICE"
 msgstr "MEMORIA"
 
@@ -189,7 +187,7 @@ msgstr "BAT ERE EZ (1200Mhz)"
 msgid "NONE"
 msgstr "BAT ERE EZ"
 
-# NEW SETTINGS ORGANIZATION
+#. NEW SETTINGS ORGANIZATION
 msgid "UPDATES"
 msgstr "EGUNERAKETAK"
 
@@ -210,6 +208,15 @@ msgstr "HASI KODI ABIARAZTEAN"
 
 msgid "START KODI WITH X"
 msgstr "X SAKATU KODI ABIARAZTEKO"
+
+msgid "SECURITY"
+msgstr "SEGURTASUNA"
+
+msgid "ENFORCE SECURITY"
+msgstr "ZIURTATU SEGURTASUNA"
+
+msgid "ROOT PASSWORD"
+msgstr "ROOT PASAHITZA"
 
 msgid "THE SYSTEM WILL NOW REBOOT"
 msgstr "SISTEMA BERRABIARAZIKO DA"
@@ -244,6 +251,9 @@ msgstr "RETROACHIVEMENTS EZARPENAK"
 msgid "RETROACHIEVEMENTS"
 msgstr "RETROACHIVEMENTS"
 
+msgid "HARDCORE MODE"
+msgstr "HARDCORE MODUA"
+
 msgid "USERNAME"
 msgstr "ERABILTZAILE IZENA"
 
@@ -253,7 +263,6 @@ msgstr "PASAHITZA"
 msgid "ADVANCED"
 msgstr "AURRERATUA"
 
-#, fuzzy
 msgid "REALLY UPDATE GAMES LISTS ?"
 msgstr "ZIUR EGUNERATU NAHI DUZULA?"
 
@@ -390,11 +399,11 @@ msgstr ""
 "AGINTEAN EXISTITZEN EZ DIREN BOTOIEI EZ EGIN KASURIK BOTOI BAT SAKATU ETA "
 "MANTENDUZ."
 
-# GUIMENU
+#. GUIMENU
 msgid "CONFIGURE A CONTROLLER"
 msgstr "AGINTE BAT KONFIGURATU"
 
-# Bluetooth
+#. Bluetooth
 msgid "CONTROLLER PAIRED"
 msgstr "AGINTEA PAREKATUA"
 
@@ -444,7 +453,7 @@ msgstr "LETRARA JOAN"
 msgid "SORT GAMES BY"
 msgstr "JOKUAN ORDENATU:"
 
-#  FAVORITES
+#. FAVORITES
 msgid "FAVORITES ONLY"
 msgstr "GOGOKOAK SOILIK"
 
@@ -457,7 +466,7 @@ msgstr "JOKU HAUEN DATUAK LORTU"
 msgid "All Games"
 msgstr "Joko guztiak"
 
-# MISSING SCRAPPER TRANSLATIONS
+#. MISSING SCRAPPER TRANSLATIONS
 msgid "Only missing image"
 msgstr "Falta diren irudiak bakarrik"
 
@@ -483,6 +492,7 @@ msgid ""
 msgstr "ABISUA: AUKERATU DITUZUN SISTEMA BATZUEK EZ DUTE PLATAFORMARIK EZARRITA. EMAITZAK "
 "NORMALEAN BAINO ZEHAZTASUN GUTXIAGOKOAK IZAN DAITEZKE!\n"
 "JARRAITU HALA ERE?"
+
 msgid "NO GAMES FIT THAT CRITERIA."
 msgstr "EZ DAUDE JOKORIK IRIZPIDE HORI BETETZEN DUTENIK"
 
@@ -506,6 +516,12 @@ msgstr "sartu emulatzailea"
 
 msgid "enter core"
 msgstr "sartu nukleoa"
+
+msgid "Ratio"
+msgstr "Ratioa"
+
+msgid "enter ratio"
+msgstr "sartu ratioa"
 
 msgid "Name"
 msgstr "Izena"
@@ -591,8 +607,8 @@ msgstr "sartu azken jokatutako data"
 #, c-format
 msgid "%i GAME AVAILABLE"
 msgid_plural "%i GAMES AVAILABLE"
-msgstr[0] "%i JOKOA ERABILGARRI"
-msgstr[1] "%i JOKOAK ERABILGARRI"
+msgstr[0] "JOKO %i  ERABILGARRI"
+msgstr[1] "%i JOKO ERABILGARRI"
 
 #, c-format
 msgid "%i FAVORITE"
@@ -742,7 +758,7 @@ msgid_plural "HOLD FOR %iS TO SKIP"
 msgstr[0] "MANTENDU %i PASATZEKO"
 msgstr[1] "MANTENDU %i PASATZEKO"
 
-# Config controllers missing translation
+#. Config controllers missing translation
 msgid "PRESS ANYTHING"
 msgstr "EDOZEIN BOTOI SAKATU"
 
@@ -773,9 +789,8 @@ msgstr "BOTOI BAT SAKATUA MANTENDU AGINTEAN KONFIGURATZEKO."
 msgid "PRESS F4 TO QUIT AT ANY TIME."
 msgstr "F4 SAKATU EDOZEIN UNETAN IRTETZEKO."
 
-#, fuzzy
 msgid "PRESS ESC OR THE HOTKEY TO CANCEL."
-msgstr "ESC SAKATU EZEZTATZEKO"
+msgstr "ESC EDO HOTKEY SAKATU EZEZTATZEKO."
 
 msgid "DO YOU WANT TO START KODI MEDIA CENTER ?"
 msgstr "KODI MULTIMEDIA GUNEA ABIARAZI NAHI DUZU?"
@@ -786,216 +801,47 @@ msgstr "KARGATZEN..."
 msgid "PLEASE WAIT..."
 msgstr "ITXARON MESEDEZ..."
 
-#~ msgid "UPDATE OK, THE SYSTEM WILL NOW REBOOT"
-#~ msgstr "EGUNERAKETA AMAITUTA. SISTEMA BERRABIARAZIKO DA ORAIN"
+msgid "REALLY SHUTDOWN WITHOUT SAVING METADATAS?"
+msgstr "BENETAN METADATUAK GORDE GABE ITZALI?"
 
-#~ msgid "Rating: "
-#~ msgstr "Puntuazioa: "
+msgid "FAST SHUTDOWN SYSTEM"
+msgstr "SISTEMAREN ITZALTZE AZKARRA"
 
-#~ msgid "Released: "
-#~ msgstr "Argitaratua:"
+msgid ""
+"WE CAN'T FIND ANY SYSTEMS!\n"
+"CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
+"\n"
+"VISIT RECALBOX.FR FOR MORE INFORMATION."
+msgstr ""
+"EZIN DA SISTEMARIK AURKITU!\n"
+"BAIEZTATU SISTEMAKO KONFIGURAZIO FITXATEGIEN HELBIDEAK ZUZENAK DIRELA ETA ZURE JOKOEN DIREKTORIOAN GUTXIENEZ FORMATU ZUZENEKO JOKO BAT DAGOELA.\n"
+"\n"
+"BISITATU RECALBOX.FR INFORMAZIO GEHIAGORAKO."
 
-#~ msgid "Developer: "
-#~ msgstr "Garatzailea : "
+msgid "ON SCREEN KEYBOARD"
+msgstr "PANTAILAKO TEKLATUA"
 
-#~ msgid "Publisher: "
-#~ msgstr "Editorea : "
+msgid "SHIFTS FOR UPPER,LOWER, AND SPECIAL"
+msgstr "SHIFT ERABILI MAIUSKULA, MINUSKULA ETA BEREZIENTZAT "
 
-#~ msgid "Genre: "
-#~ msgstr "Generoa:"
+msgid "SPACE"
+msgstr "HUTSUNEA"
 
-#~ msgid "Players: "
-#~ msgstr "Jokalariak : "
+msgid "DELETE A CHAR"
+msgstr "EZABATU HIZKIA"
 
-#~ msgid "Last played: "
-#~ msgstr "Azken partida : "
+msgid "SHIFT"
+msgstr "MAIUS"
 
-#~ msgid "Times played: "
-#~ msgstr "Alditan jokatua : "
+msgid "STOP EDITING"
+msgstr "GELDITU EDIZIOA"
 
-#~ msgid "NAME"
-#~ msgstr "IZENA"
+msgid "MOVE CURSOR"
+msgstr "MUGITU KRUTSOREA"
 
-#~ msgid "ENTER DESCRIPTION"
-#~ msgstr "SARTU DESKRIPZIOA"
+msgid "EDIT"
+msgstr "EDITATU"
 
-#~ msgid "ENTER PATH TO IMAGE"
-#~ msgstr "SARTU IRUDIRA BIDEA"
+msgid "ACCEPT RESULT"
+msgstr "ONARTU EMAITZA"
 
-#~ msgid "THUMBNAIL"
-#~ msgstr "IRUDI TXIKIA"
-
-#~ msgid "ENTER PATH TO THUMBNAIL"
-#~ msgstr "SARTU IRUDI TXIKIRA BIDEA"
-
-#~ msgid "RATING"
-#~ msgstr "KALIFIKAZIOA"
-
-#~ msgid "ENTER SCORE"
-#~ msgstr "SARTU KALIFIKAZIOA"
-
-#~ msgid "RELEASE DATE"
-#~ msgstr "ARGITARATZE DATA"
-
-#~ msgid "ENTER RELEASE DATE"
-#~ msgstr "SARTU ARGITARATZE DATA"
-
-#~ msgid "DEVELOPER"
-#~ msgstr "GARATZAILEA"
-
-#~ msgid "ENTER GAME DEVELOPER"
-#~ msgstr "SARTU GARATZAILEAREN IZENA"
-
-#~ msgid "PUBLISHER"
-#~ msgstr "EDITOREA"
-
-#~ msgid "ENTER GAME PUBLISHER"
-#~ msgstr "SARTU EDITOREAREN IZENA"
-
-#~ msgid "GENRE"
-#~ msgstr "GENEROA"
-
-#~ msgid "ENTER GAME GENRE"
-#~ msgstr "SARTU GENEROA"
-
-#~ msgid "PLAYERS"
-#~ msgstr "JOKALARIAK"
-
-#~ msgid "ENTER NUMBER OF PLAYERS"
-#~ msgstr "SARTU JOKALARI KOPURUA"
-
-#~ msgid "PLAY COUNT"
-#~ msgstr "PARTIDA KOPURUA"
-
-#~ msgid "ENTER NUMBER OF TIMES PLAYED"
-#~ msgstr "SARTU JOKATUTAKO PARTIDEN KOPURUA"
-
-#~ msgid "ENABLE SOUNDS"
-#~ msgstr "SOINUA AKTIBATU"
-
-#~ msgid "REALLY QUIT?"
-#~ msgstr "IRTEN?"
-
-#~ msgid "QUIT EMULATIONSTATION"
-#~ msgstr "EMULATIONSTATION-etik IRTEN"
-
-#~ msgid "close"
-#~ msgstr "itxi"
-
-#~ msgid "select"
-#~ msgstr "aukeratu"
-
-#~ msgid "choose"
-#~ msgstr "hautatu"
-
-#~ msgid "back"
-#~ msgstr "atzera"
-
-#~ msgid "GO BACK"
-#~ msgstr "ATZERA EGIN"
-
-#~ msgid " GAMES AVAILABLE"
-#~ msgstr " JOKU ERABILGARRIAK"
-
-#~ msgid " GAMEPAD"
-#~ msgstr " AGINTEA"
-
-#~ msgid " DETECTED"
-#~ msgstr " DETEKTATUA"
-
-#~ msgid "UPDATE"
-#~ msgstr "EGUNERATU"
-
-#~ msgid "INPUT P1"
-#~ msgstr "J1 AGINTEA"
-
-#~ msgid "INPUT P2"
-#~ msgstr "J2 AGINTEA"
-
-#~ msgid "INPUT P3"
-#~ msgstr "J3 AGINTEA"
-
-#~ msgid "INPUT P4"
-#~ msgstr "J4 AGINTEA"
-
-#~ msgid "STORAGE"
-#~ msgstr "MEMORIA"
-
-#~ msgid "GPIO CONTROLLERS"
-#~ msgstr "GPIO AGINTEAK"
-
-#~ msgid "GPIO CONTROLLERS ARE NOW ON"
-#~ msgstr "GPIO AGINTEAK AKTIBATUTA DAUDE"
-
-# TEXT EDITING
-#~ msgid "EDIT"
-#~ msgstr "EDITATU"
-
-#~ msgid "STOP EDITING"
-#~ msgstr "EDITATZEZ UTZI"
-
-#~ msgid "MOVE CURSOR"
-#~ msgstr "KURTSOREA MUGITU"
-
-#~ msgid "accept"
-#~ msgstr "Onartu"
-
-#~ msgid " SELECTED"
-#~ msgstr " AUKERATUAK"
-
-#~ msgid "accept result"
-#~ msgstr "erantzuna onartu"
-
-#~ msgid "GAMES"
-#~ msgstr "JOKOAK"
-
-#~ msgid " OF "
-#~ msgstr " NOREN: "
-
-#~ msgid " SKIPPED."
-#~ msgstr " TXANDAPASA EGINDA."
-
-#~ msgid "FAVORITE"
-#~ msgstr "GOGOKOA"
-
-#~ msgid " GAME AVAILABLE"
-#~ msgstr " JOKOA ERABILGARRI"
-
-#, fuzzy
-#~ msgid "FAVORITES"
-#~ msgstr "GOGOKOA"
-
-#, fuzzy
-#~ msgid "ENTER REGION"
-#~ msgstr "SARTU KALIFIKAZIOA"
-
-#, fuzzy
-#~ msgid "ENTER ROMTYPE"
-#~ msgstr "SARTU KALIFIKAZIOA"
-
-#~ msgid "HOLD FOR "
-#~ msgstr "MANTENDU HONETARAKO:"
-
-#~ msgid "S TO SKIP"
-#~ msgstr "S TXANDAPASARAKO"
-
-#~ msgid " SUCCESSFULLY SCRAPED!"
-#~ msgstr " LORTUAK!"
-
-#~ msgid "NOGAMEERRORMESSAGE"
-#~ msgstr ""
-#~ "EZ DA JOKORIK AURKITU SISTEMAN !\n"
-#~ "MESEDEZ, JARRAITU ARGIBIDEAK JOKOAK GEHITZEKO.\n"
-#~ "\n"
-#~ "RECALBOX.COM-EN BISITA GAITZAZU INFORMAZIO GEHIAGO ESKURATZEKO"
-
-#~ msgid "I18NMESSAGECONTROLLERS"
-#~ msgstr ""
-#~ "AGINTE BAT KONFIGURATZERA ZOAZ. JOYSTICK BAT SOILIK BADUZU NORABIDEAK "
-#~ "KONFIGURATU ETA AHAZTU BESTE KONFIGURAZIOA BOTO BAT SAKATU ETA MANTENDUZ. "
-#~ "EZ BADUZU BOTOI BEREZIRIK HOTKEY-arentzat ERABILI EZAZU SELECT BOTOIA. "
-#~ "ZURE AGINTEAN EXISTITZEN EZ DIREN BOTOIEI EZ EGIN KASURIK BOTOI BAT "
-#~ "SAKATU ETA MANTENDUZ."
-
-#~ msgid "NO GAMES WERE SCRAPED."
-#~ msgstr "EZ DA INONGO JOKOREN DATURIK LORTU."
