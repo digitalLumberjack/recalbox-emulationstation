@@ -233,6 +233,7 @@ msgstr "BAT ERE EZ (1200Mhz)"
 msgid "NONE"
 msgstr "BAT ERE EZ"
 
+#. NEW SETTINGS ORGANIZATION
 #: 
 msgid "UPDATES"
 msgstr "EGUNERAKETAK"
