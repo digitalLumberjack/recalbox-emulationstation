@@ -450,7 +450,7 @@ bool deleteSystem(SystemData * system){
 void SystemData::deleteSystems()
 {
 	if(sSystemVector.size()) {
-		// THE CREATION OF EACH SYSTEM
+		// THE DELETION OF EACH SYSTEM
 		boost::asio::io_service ioService;
 		boost::thread_group threadpool;
 		boost::asio::io_service::work work(ioService);
@@ -538,6 +538,11 @@ unsigned int SystemData::getGameCount() const
 unsigned int SystemData::getFavoritesCount() const
 {
 	return mRootFolder->getFavoritesRecursive(GAME).size();
+}
+
+unsigned int SystemData::getHiddenCount() const
+{
+	return mRootFolder->getHiddenRecursive(GAME).size();
 }
 
 void SystemData::loadTheme()

@@ -33,6 +33,7 @@ RecalboxSystem::RecalboxSystem() {
 
 RecalboxSystem *RecalboxSystem::instance = NULL;
 
+
 RecalboxSystem *RecalboxSystem::getInstance() {
     if (RecalboxSystem::instance == NULL) {
         RecalboxSystem::instance = new RecalboxSystem();
@@ -117,8 +118,7 @@ bool RecalboxSystem::createLastVersionFileIfNotExisting() {
     std::string versionFile = Settings::getInstance()->getString("LastVersionFile");
 
     FILE *file;
-    if (file = fopen(versionFile.c_str(), "r"))
-    {
+    if (file = fopen(versionFile.c_str(), "r")) {
         fclose(file);
         return true;
     }
@@ -226,13 +226,22 @@ bool RecalboxSystem::setOverclock(std::string mode) {
 }
 
 
-bool RecalboxSystem::updateSystem() {
+std::pair<std::string,int> RecalboxSystem::updateSystem() {
     std::string updatecommand = Settings::getInstance()->getString("UpdateCommand");
-    if (updatecommand.size() > 0) {
-        int exitcode = system(updatecommand.c_str());
-        return exitcode == 0;
+    FILE *pipe = popen(updatecommand.c_str(), "r");
+    char line[1024];
+    if (pipe == NULL) {
+        return std::pair<std::string,int>(std::string("Cannot call update command"),-1);
     }
-    return false;
+    if (fgets(line, 1024, pipe)) {
+        strtok(line, "\n");
+    }
+    int exitCode = pclose(pipe)/256;
+    if(strlen(line) == 0){
+        return std::pair<std::string,int>(std::string("Cannot call update command"), exitCode);
+    }else{
+        return std::pair<std::string,int>(std::string(line), exitCode);
+    }
 }
 
 bool RecalboxSystem::ping() {
@@ -265,13 +274,13 @@ bool RecalboxSystem::launchKodi(Window *window) {
     VolumeControl::getInstance()->deinit();
 
     std::string commandline = InputManager::getInstance()->configureEmulators();
-    std::string command = "configgen -system kodi -rom '' "+commandline;
-    
+    std::string command = "configgen -system kodi -rom '' " + commandline;
+
     window->deinit();
 
     int exitCode = system(command.c_str());
-    if(WIFEXITED(exitCode)) {
-      exitCode = WEXITSTATUS(exitCode);
+    if (WIFEXITED(exitCode)) {
+        exitCode = WEXITSTATUS(exitCode);
     }
 
     window->init();
@@ -280,17 +289,17 @@ bool RecalboxSystem::launchKodi(Window *window) {
     window->normalizeNextUpdate();
 
     // handle end of kodi
-    switch(exitCode) {
-    case 10: // reboot code
-      reboot();
-      return true;
-      break;
-    case 11: // shutdown code
-      shutdown();
-      return true;
-      break;
+    switch (exitCode) {
+        case 10: // reboot code
+            reboot();
+            return true;
+            break;
+        case 11: // shutdown code
+            shutdown();
+            return true;
+            break;
     }
-    
+
     return exitCode == 0;
 
 }
@@ -331,22 +340,38 @@ bool RecalboxSystem::disableWifi() {
 }
 
 
+bool RecalboxSystem::halt(bool reboot, bool fast) {
+    SDL_Event *quit = new SDL_Event();
+    if (fast)
+        if (reboot)
+            quit->type = SDL_FAST_QUIT | SDL_RB_REBOOT;
+        else
+            quit->type = SDL_FAST_QUIT | SDL_RB_SHUTDOWN;
+    else
+        if (reboot)
+            quit->type = SDL_QUIT | SDL_RB_REBOOT;
+        else
+            quit->type = SDL_QUIT | SDL_RB_SHUTDOWN;
+    SDL_PushEvent(quit);
+    return 0;
+}
 
 bool RecalboxSystem::reboot() {
-    bool success = system("touch /tmp/reboot.please") == 0;
-    SDL_Event *quit = new SDL_Event();
-    quit->type = SDL_QUIT;
-    SDL_PushEvent(quit);
-    return success;
+    return halt(true, false);
+}
+
+bool RecalboxSystem::fastReboot() {
+    return halt(true, true);
 }
 
 bool RecalboxSystem::shutdown() {
-    bool success = system("touch /tmp/shutdown.please") == 0;
-    SDL_Event *quit = new SDL_Event();
-    quit->type = SDL_QUIT;
-    SDL_PushEvent(quit);
-    return success;
+    return halt(false, false);
 }
+
+bool RecalboxSystem::fastShutdown() {
+    return halt(false, true);
+}
+
 
 std::string RecalboxSystem::getIpAdress() {
     struct ifaddrs *ifAddrStruct = NULL;
@@ -366,7 +391,8 @@ std::string RecalboxSystem::getIpAdress() {
             char addressBuffer[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
             printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
-            if (std::string(ifa->ifa_name).find("eth") != std::string::npos || std::string(ifa->ifa_name).find("wlan") != std::string::npos) {
+            if (std::string(ifa->ifa_name).find("eth") != std::string::npos ||
+                std::string(ifa->ifa_name).find("wlan") != std::string::npos) {
                 result = std::string(addressBuffer);
             }
         }
@@ -383,7 +409,8 @@ std::string RecalboxSystem::getIpAdress() {
                 char addressBuffer[INET6_ADDRSTRLEN];
                 inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
                 printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
-                if (std::string(ifa->ifa_name).find("eth") != std::string::npos || std::string(ifa->ifa_name).find("wlan") != std::string::npos) {
+                if (std::string(ifa->ifa_name).find("eth") != std::string::npos ||
+                    std::string(ifa->ifa_name).find("wlan") != std::string::npos) {
                     return std::string(addressBuffer);
                 }
             }
@@ -452,7 +479,7 @@ std::string RecalboxSystem::getCurrentStorage() {
         return "";
     }
 
-    if(fgets(line, 1024, pipe)){
+    if (fgets(line, 1024, pipe)) {
         strtok(line, "\n");
         pclose(pipe);
         return std::string(line);

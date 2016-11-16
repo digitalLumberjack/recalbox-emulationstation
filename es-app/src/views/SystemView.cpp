@@ -169,6 +169,19 @@ bool SystemView::input(InputConfig* config, Input input)
 			row.addElement(std::make_shared<TextComponent>(window, _("SHUTDOWN SYSTEM"), Font::get(FONT_SIZE_MEDIUM),
 														   0x777777FF), true);
 			s->addRow(row);
+			row.elements.clear();
+			row.makeAcceptInputHandler([window] {
+				window->pushGui(new GuiMsgBox(window, _("REALLY SHUTDOWN WITHOUT SAVING METADATAS?"), _("YES"),
+											  [] {
+												  if (RecalboxSystem::getInstance()->fastShutdown() != 0)  {
+													  LOG(LogWarning) <<
+																	  "Shutdown terminated with non-zero result!";
+												  }
+											  }, _("NO"), nullptr));
+			});
+			row.addElement(std::make_shared<TextComponent>(window, _("FAST SHUTDOWN SYSTEM"), Font::get(FONT_SIZE_MEDIUM),
+														   0x777777FF), true);
+			s->addRow(row);
 			mWindow->pushGui(s);
 		}
 
@@ -228,16 +241,27 @@ void SystemView::onCursorChanged(const CursorState& state)
 
 	unsigned int gameCount = getSelected()->getGameCount();
 	unsigned int favoritesCount = getSelected()->getFavoritesCount();
+	unsigned int hiddenCount = getSelected()->getHiddenCount();
+	unsigned int gameNoHiddenCount = gameCount - hiddenCount;
 
 	// also change the text after we've fully faded out
-	setAnimation(infoFadeOut, 0, [this, gameCount, favoritesCount] {
+	setAnimation(infoFadeOut, 0, [this, gameCount, favoritesCount, gameNoHiddenCount, hiddenCount] {
 		char strbuf[256];
-		if(favoritesCount == 0) {
-		  snprintf(strbuf, 256, ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameCount).c_str(), gameCount);
-		} else {
-		  snprintf(strbuf, 256,
-			   (ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameCount) + ", " +
-			    ngettext("%i FAVORITE", "%i FAVORITES", favoritesCount)).c_str(), gameCount, favoritesCount);
+		if(favoritesCount == 0 && hiddenCount == 0) {
+			snprintf(strbuf, 256, ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameNoHiddenCount).c_str(), gameNoHiddenCount);
+		}else if (favoritesCount != 0 && hiddenCount == 0) {
+			snprintf(strbuf, 256,
+				(ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameNoHiddenCount) + ", " +
+				 ngettext("%i FAVORITE", "%i FAVORITES", favoritesCount)).c_str(), gameNoHiddenCount, favoritesCount);
+		}else if (favoritesCount == 0 && hiddenCount != 0) {
+			snprintf(strbuf, 256,
+				(ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameNoHiddenCount) + ", " +
+				 ngettext("%i GAME HIDDEN", "%i GAMES HIDDEN", hiddenCount)).c_str(), gameNoHiddenCount, hiddenCount);
+		}else {
+			snprintf(strbuf, 256,
+				(ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameNoHiddenCount) + ", " +
+				 ngettext("%i GAME HIDDEN", "%i GAMES HIDDEN", hiddenCount) + ", " +
+				 ngettext("%i FAVORITE", "%i FAVORITES", favoritesCount)).c_str(), gameNoHiddenCount, hiddenCount, favoritesCount);
 		}
 		mSystemInfo.setText(strbuf);
 	}, false, 1);

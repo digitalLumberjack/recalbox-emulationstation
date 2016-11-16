@@ -50,6 +50,7 @@ void Settings::setDefaults() {
     mBoolMap["DrawFramerate"] = false;
     mBoolMap["ShowExit"] = true;
     mBoolMap["Windowed"] = false;
+    mBoolMap["UseOSK"] = true;
 
 #ifdef _RPI_
 	// don't enable VSync by default on the Pi, since it already
@@ -65,6 +66,7 @@ void Settings::setDefaults() {
     mBoolMap["HideConsole"] = true;
     mBoolMap["QuickSystemSelect"] = true;
     mBoolMap["FavoritesOnly"] = false;
+    mBoolMap["ShowHidden"] = false;
 
     mBoolMap["Debug"] = false;
     mBoolMap["DebugGrid"] = false;
@@ -81,7 +83,7 @@ void Settings::setDefaults() {
     mStringMap["TransitionStyle"] = "fade";
     mStringMap["ThemeSet"] = "";
     mStringMap["ScreenSaverBehavior"] = "dim";
-    mStringMap["Scraper"] = "TheGamesDB";
+    mStringMap["Scraper"] = "Screenscraper";
     mStringMap["Lang"] = "en_US";
     mStringMap["INPUT P1"] = "DEFAULT";
     mStringMap["INPUT P2"] = "DEFAULT";

@@ -35,6 +35,7 @@
 #include "scrapers/GamesDBScraper.h"
 
 #include "guis/GuiTextEditPopup.h"
+#include "guis/GuiTextEditPopupKeyboard.h"
 #include "GuiLoading.h"
 
 #include "RecalboxConf.h"
@@ -72,10 +73,17 @@ void GuiMenu::createInputTextRow(GuiSettings *gui, std::string title, const char
         }
         RecalboxConf::getInstance()->set(settingsID, newVal);
     }; // ok callback (apply new value to ed)
+    
     row.makeAcceptInputHandler([this, title, updateVal, settingsID] {
-        mWindow->pushGui(
+        if (Settings::getInstance()->getBool("UseOSK")) {
+            mWindow->pushGui(
+                new GuiTextEditPopupKeyboard(mWindow, title, RecalboxConf::getInstance()->get(settingsID),
+                                        updateVal, false));
+        } else {
+            mWindow->pushGui(
                 new GuiTextEditPopup(mWindow, title, RecalboxConf::getInstance()->get(settingsID),
-                                     updateVal, false));
+                                       updateVal, false));
+        }
     });
     gui->addRow(row);
 }
@@ -153,16 +161,25 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                                                                                                 false);
                      std::string language = RecalboxConf::getInstance()->get("system.language");
                      if (language.empty()) language = "en_US";
-		     language_choice->add("BASQUE",    "eu_ES", language == "eu_ES");
-		     language_choice->add("CHINESE",   "zh_CN", language == "zh_CN");
-		     language_choice->add("DEUTSCH",   "de_DE", language == "de_DE");
-		     language_choice->add("ENGLISH",   "en_US", language == "en_US");
-                     language_choice->add("ESPAÑOL",   "es_ES", language == "es_ES");
-		     language_choice->add("FRANÇAIS",  "fr_FR", language == "fr_FR");
-		     language_choice->add("ITALIANO",  "it_IT", language == "it_IT");
-                     language_choice->add("PORTUGUES", "pt_BR", language == "pt_BR");
-		     language_choice->add("SVENSKA",   "sv_SE", language == "sv_SE");
-                     language_choice->add("TÜRKÇE",    "tr_TR", language == "tr_TR");
+                     language_choice->add("BASQUE",              "eu_ES", language == "eu_ES");
+                     language_choice->add("正體中文",              "zh_TW", language == "zh_TW");
+                     language_choice->add("简体中文",                 "zh_CN", language == "zh_CN");
+                     language_choice->add("DEUTSCH",             "de_DE", language == "de_DE");
+                     language_choice->add("ENGLISH",             "en_US", language == "en_US");
+                     language_choice->add("ESPAÑOL",             "es_ES", language == "es_ES");
+                     language_choice->add("FRANÇAIS",            "fr_FR", language == "fr_FR");
+                     language_choice->add("ITALIANO",            "it_IT", language == "it_IT");
+                     language_choice->add("PORTUGUES",           "pt_BR", language == "pt_BR");
+                     language_choice->add("SVENSKA",             "sv_SE", language == "sv_SE");
+                     language_choice->add("TÜRKÇE",              "tr_TR", language == "tr_TR");
+                     language_choice->add("CATALÀ",              "ca_ES", language == "ca_ES");
+                     language_choice->add("ARABIC",              "ar_YE", language == "ar_YE");
+                     language_choice->add("DUTCH",               "nl_NL", language == "nl_NL");
+                     language_choice->add("GREEK",               "el_GR", language == "el_GR");
+                     language_choice->add("KOREAN",              "ko_KR", language == "ko_KR");
+                     language_choice->add("NORWEGIAN",           "nn_NO", language == "nn_NO");
+                     language_choice->add("NORWEGIAN BOKMAL",    "nb_NO", language == "nb_NO");
+                     language_choice->add("POLISH",    "pl", language == "pl");
 
                      s->addWithLabel(_("LANGUAGE"), language_choice);
 
@@ -175,11 +192,11 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                      overclock_choice->add(_("EXTREM (1100Mhz)"), "extrem", currentOverclock == "extrem");
                      overclock_choice->add(_("TURBO (1000Mhz)"), "turbo", currentOverclock == "turbo");
                      overclock_choice->add(_("HIGH (950Mhz)"), "high", currentOverclock == "high");
-                     overclock_choice->add(_("NONE (700Mhz)"), "none", currentOverclock == "none");
+                     overclock_choice->add(_("NONE"), "none", currentOverclock == "none");
 #elif RPI_VERSION == 2
                      std::string currentOverclock = Settings::getInstance()->getString("Overclock");
-                     overclock_choice->add(_("EXTREM (1100Mhz)"), "rpi2-extrem", currentOverclock == "rpi2-extrem");
-                     overclock_choice->add(_("TURBO (1050Mhz)+"), "rpi2-turbo", currentOverclock == "rpi2-turbo");
+                     //overclock_choice->add(_("EXTREM (1100Mhz)"), "rpi2-extrem", currentOverclock == "rpi2-extrem");
+                     //overclock_choice->add(_("TURBO (1050Mhz)+"), "rpi2-turbo", currentOverclock == "rpi2-turbo");
                      overclock_choice->add(_("HIGH (1050Mhz)"), "rpi2-high", currentOverclock == "rpi2-high");
                      overclock_choice->add(_("NONE (900Mhz)"), "none", currentOverclock == "none");
 #elif RPI_VERSION == 3
@@ -280,7 +297,7 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
 									       RecalboxSystem::getInstance()->getRootPassword(),
 									       Font::get(FONT_SIZE_MEDIUM), 0x777777FF);
 			   securityGui->addWithLabel(_("ROOT PASSWORD"), rootpassword);
-			   
+
 			   securityGui->addSaveFunc([this, securityEnabled] {
 			       Window* window = this->mWindow;
 			       bool reboot = false;
@@ -390,6 +407,19 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                  shaders_choices->add(_("SCANLINES"), "scanlines", currentShader == "scanlines");
                  shaders_choices->add(_("RETRO"), "retro", currentShader == "retro");
                  s->addWithLabel(_("SHADERS SET"), shaders_choices);
+                 // Integer scale
+                 auto integerscale_enabled = std::make_shared<SwitchComponent>(mWindow);
+                 integerscale_enabled->setState(RecalboxConf::getInstance()->get("global.integerscale") == "1");
+                 s->addWithLabel(_("INTEGER SCALE (PIXEL PERFECT)"), integerscale_enabled);
+                 s->addSaveFunc([integerscale_enabled] {
+                     RecalboxConf::getInstance()->set("global.integerscale", integerscale_enabled->getState() ? "1" : "0");
+                     RecalboxConf::getInstance()->saveRecalboxConf();
+                 });
+
+                 shaders_choices->setSelectedChangedCallback([integerscale_enabled] (std::string selectedShader){
+                     integerscale_enabled->setState(selectedShader != "none") ;
+                 });
+
 
                  if (RecalboxConf::getInstance()->get("system.es.menu") != "bartop") {
 
@@ -437,42 +467,72 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                          row.addElement(bracket, false);
                          s->addRow(row);
                      }
-                 }
-                 // Custom config for systems
-                 if (RecalboxConf::getInstance()->get("system.es.menu") != "bartop") {
-                     ComponentListRow row;
-                     std::function<void()> openGuiD = [this, s] {
-                         s->save();
-                         GuiSettings *configuration = new GuiSettings(mWindow, _("ADVANCED").c_str());
-                         // For each activated system
-                         std::vector<SystemData *> systems = SystemData::sSystemVector;
-                         for (auto system = systems.begin(); system != systems.end(); system++) {
-                             if ((*system) != SystemData::getFavoriteSystem()) {
-                                 ComponentListRow systemRow;
-                                 auto systemText = std::make_shared<TextComponent>(mWindow, (*system)->getFullName(),
-                                                                                   Font::get(FONT_SIZE_MEDIUM),
-                                                                                   0x777777FF);
-                                 auto bracket = makeArrow(mWindow);
-                                 systemRow.addElement(systemText, true);
-                                 systemRow.addElement(bracket, false);
-                                 SystemData *systemData = (*system);
-                                 systemRow.makeAcceptInputHandler([this, systemData] {
-                                     popSystemConfigurationGui(systemData, "");
-                                 });
-                                 configuration->addRow(systemRow);
+                     // Custom config for systems
+                     {
+                         ComponentListRow row;
+                         std::function<void()> openGuiD = [this, s] {
+                             s->save();
+                             GuiSettings *configuration = new GuiSettings(mWindow, _("ADVANCED").c_str());
+                             // For each activated system
+                             std::vector<SystemData *> systems = SystemData::sSystemVector;
+                             for (auto system = systems.begin(); system != systems.end(); system++) {
+                                 if ((*system) != SystemData::getFavoriteSystem()) {
+                                     ComponentListRow systemRow;
+                                     auto systemText = std::make_shared<TextComponent>(mWindow, (*system)->getFullName(),
+                                                                                       Font::get(FONT_SIZE_MEDIUM),
+                                                                                       0x777777FF);
+                                     auto bracket = makeArrow(mWindow);
+                                     systemRow.addElement(systemText, true);
+                                     systemRow.addElement(bracket, false);
+                                     SystemData *systemData = (*system);
+                                     systemRow.makeAcceptInputHandler([this, systemData] {
+                                         popSystemConfigurationGui(systemData, "");
+                                     });
+                                     configuration->addRow(systemRow);
+                                 }
                              }
-                         }
-                         mWindow->pushGui(configuration);
+                             mWindow->pushGui(configuration);
 
-                     };
-                     // Advanced button
-                     row.makeAcceptInputHandler(openGuiD);
-                     auto advanced = std::make_shared<TextComponent>(mWindow, _("ADVANCED"), Font::get(FONT_SIZE_MEDIUM),
-                                                                     0x777777FF);
-                     auto bracket = makeArrow(mWindow);
-                     row.addElement(advanced, true);
-                     row.addElement(bracket, false);
-                     s->addRow(row);
+                         };
+                         // Advanced button
+                         row.makeAcceptInputHandler(openGuiD);
+                         auto advanced = std::make_shared<TextComponent>(mWindow, _("ADVANCED"),
+                                                                         Font::get(FONT_SIZE_MEDIUM),
+                                                                         0x777777FF);
+                         auto bracket = makeArrow(mWindow);
+                         row.addElement(advanced, true);
+                         row.addElement(bracket, false);
+                         s->addRow(row);
+                     }
+                     // Game List Update
+                     {
+                         ComponentListRow row;
+                         Window *window = mWindow;
+
+                         row.makeAcceptInputHandler([this, window] {
+                             window->pushGui(new GuiMsgBox(window, _("REALLY UPDATE GAMES LISTS ?"), _("YES"),
+                                                           [this, window] {
+                                                               ViewController::get()->goToStart();
+                                                               window->renderShutdownScreen();
+                                                               delete ViewController::get();
+                                                               SystemData::deleteSystems();
+                                                               SystemData::loadConfig();
+                                                               GuiComponent *gui;
+                                                               while ((gui = window->peekGui()) != NULL) {
+                                                                   window->removeGui(gui);
+                                                                   delete gui;
+                                                               }
+                                                               ViewController::init(window);
+                                                               ViewController::get()->reloadAll();
+                                                               window->pushGui(ViewController::get());
+                                                           }, _("NO"), nullptr));
+                         });
+                         row.addElement(
+                                 std::make_shared<TextComponent>(window, _("UPDATE GAMES LISTS"),
+                                                                 Font::get(FONT_SIZE_MEDIUM),
+                                                                 0x777777FF), true);
+                         s->addRow(row);
+                     }
                  }
                  s->addSaveFunc([smoothing_enabled, rewind_enabled, shaders_choices, autosave_enabled] {
                      RecalboxConf::getInstance()->set("global.smooth", smoothing_enabled->getState() ? "1" : "0");
@@ -481,36 +541,6 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                      RecalboxConf::getInstance()->set("global.autosave", autosave_enabled->getState() ? "1" : "0");
                      RecalboxConf::getInstance()->saveRecalboxConf();
                  });
-                 // reread game list
-                 if (RecalboxConf::getInstance()->get("system.es.menu") != "bartop") {
-
-                     ComponentListRow row;
-                     Window *window = mWindow;
-
-                     row.makeAcceptInputHandler([this, window] {
-                         window->pushGui(new GuiMsgBox(window, _("REALLY UPDATE GAMES LISTS ?"), _("YES"),
-                                                       [this, window] {
-                                                           ViewController::get()->goToStart();
-                                                           window->renderShutdownScreen();
-                                                           delete ViewController::get();
-                                                           SystemData::deleteSystems();
-                                                           SystemData::loadConfig();
-                                                           GuiComponent *gui;
-                                                           while ((gui = window->peekGui()) != NULL) {
-                                                               window->removeGui(gui);
-                                                               delete gui;
-                                                           }
-                                                           ViewController::init(window);
-                                                           ViewController::get()->reloadAll();
-                                                           window->pushGui(ViewController::get());
-                                                       }, _("NO"), nullptr));
-                     });
-                     row.addElement(
-                             std::make_shared<TextComponent>(window, _("UPDATE GAMES LISTS"),
-                                                             Font::get(FONT_SIZE_MEDIUM),
-                                                             0x777777FF), true);
-                     s->addRow(row);
-                 }
                  mWindow->pushGui(s);
              }
 
@@ -583,6 +613,13 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                      s->addSaveFunc([quick_sys_select] {
                          Settings::getInstance()->setBool("QuickSystemSelect", quick_sys_select->getState());
                      });
+
+                    // Enable OSK (On-Screen-Keyboard)
+                    auto osk_enable = std::make_shared<SwitchComponent>(mWindow);
+                    osk_enable->setState(Settings::getInstance()->getBool("UseOSK"));
+                    s->addWithLabel(_("ON SCREEN KEYBOARD"), osk_enable);
+                    s->addSaveFunc([osk_enable] {
+                         Settings::getInstance()->setBool("UseOSK", osk_enable->getState()); } );
 
                      // transition style
                      auto transition_style = std::make_shared<OptionListComponent<std::string> >(mWindow,
@@ -816,6 +853,19 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                                                                 0x777777FF), true);
                  s->addRow(row);
 
+                 row.elements.clear();
+                 row.makeAcceptInputHandler([window] {
+                     window->pushGui(new GuiMsgBox(window, _("REALLY SHUTDOWN WITHOUT SAVING METADATAS?"), _("YES"),
+                                                   [] {
+                                                       if (RecalboxSystem::getInstance()->fastShutdown() != 0) {
+                                                           LOG(LogWarning) <<
+                                                                           "Shutdown terminated with non-zero result!";
+                                                       }
+                                                   }, _("NO"), nullptr));
+                 });
+                 row.addElement(std::make_shared<TextComponent>(window, _("FAST SHUTDOWN SYSTEM"), Font::get(FONT_SIZE_MEDIUM),
+                                                                0x777777FF), true);
+                 s->addRow(row);
                  /*if(Settings::getInstance()->getBool("ShowExit"))
                  {
                      row.elements.clear();
