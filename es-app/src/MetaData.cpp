@@ -163,6 +163,13 @@ void MetaDataList::merge(const MetaDataList& other) {
 		if(mustMerge){
 			this->set(otherIter->first, otherIter->second);
 		}
+
+bool MetaDataList::isDefault()
+{
+	const std::vector<MetaDataDecl>& mdd = getMDD();
+
+	for (int i = 1; i < mMap.size(); i++) {
+		if (mMap.at(mdd[i].key) != mdd[i].defaultValue) return false;
 	}
 }
 
