@@ -57,7 +57,7 @@ const std::vector<MetaDataDecl>& getMDDByType(MetaDataListType type)
 
 
 MetaDataList::MetaDataList(MetaDataListType type)
-	: mType(type)
+	: mType(type), mWasChanged(false)
 {
 	const std::vector<MetaDataDecl>& mdd = getMDD();
 	for(auto iter = mdd.begin(); iter != mdd.end(); iter++)
@@ -117,11 +117,13 @@ void MetaDataList::appendToXML(pugi::xml_node parent, bool ignoreDefaults, const
 void MetaDataList::set(const std::string& key, const std::string& value)
 {
 	mMap[key] = value;
+	mWasChanged = true;
 }
 
 void MetaDataList::setTime(const std::string& key, const boost::posix_time::ptime& time)
 {
 	mMap[key] = boost::posix_time::to_iso_string(time);
+	set(key, boost::posix_time::to_iso_string(time));
 }
 
 const std::string& MetaDataList::get(const std::string& key) const
@@ -142,6 +144,27 @@ float MetaDataList::getFloat(const std::string& key) const
 boost::posix_time::ptime MetaDataList::getTime(const std::string& key) const
 {
 	return string_to_ptime(get(key), "%Y%m%dT%H%M%S%F%q");
+}
+
+bool MetaDataList::isDefault()
+{
+	const std::vector<MetaDataDecl>& mdd = getMDD();
+	
+	for (int i = 1; i < mMap.size(); i++) {
+		if (mMap.at(mdd[i].key) != mdd[i].defaultValue) return false;
+	}
+
+	return true;
+}
+
+bool MetaDataList::wasChanged() const
+{
+	return mWasChanged;
+}
+
+void MetaDataList::resetChangedFlag()
+{
+	mWasChanged = false;
 }
 
 void MetaDataList::merge(const MetaDataList& other) {
