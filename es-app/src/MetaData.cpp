@@ -17,8 +17,10 @@ void initMetadata() {
   gameMDD.push_back(MetaDataDecl("ratio",	MD_LIST,		"auto",			false,		_("Ratio"),			_("enter ratio")));
   gameMDD.push_back(MetaDataDecl("name",	MD_STRING,		"", 			false,		_("Name"),			_("enter game name")));
   gameMDD.push_back(MetaDataDecl("desc",	MD_MULTILINE_STRING,	"", 			false,		_("Description"),		_("enter description")));
-  gameMDD.push_back(MetaDataDecl("image",	MD_IMAGE_PATH,		"", 			false,		_("Image"),			_("enter path to image")));
-  gameMDD.push_back(MetaDataDecl("thumbnail",	MD_IMAGE_PATH,		"", 			false,		_("Thumbnail"),			_("enter path to thumbnail")));
+  gameMDD.push_back(MetaDataDecl("image",	MD_PATH,		"", 			false,		_("Image"),			_("enter path to image")));
+  gameMDD.push_back(MetaDataDecl("video",	MD_PATH,		"", 			false,		_("Video"),			_("enter path to thumbnail")));
+  gameMDD.push_back(MetaDataDecl("marquee",	MD_PATH,		"", 			false,		_("Marquee"),			_("enter path to image")));
+  gameMDD.push_back(MetaDataDecl("thumbnail",	MD_PATH,		"", 			false,		_("Thumbnail"),			_("enter path to thumbnail")));
   gameMDD.push_back(MetaDataDecl("rating",	MD_RATING,		"0.000000", 		false,		_("Rating"),			_("enter rating")));
   gameMDD.push_back(MetaDataDecl("releasedate", MD_DATE,		"not-a-date-time", 	false,		_("Release date"),		_("enter release date")));
   gameMDD.push_back(MetaDataDecl("developer",	MD_STRING,		"unknown",		false,		_("Developer"),			_("enter game developer")));
@@ -35,8 +37,8 @@ void initMetadata() {
 
   folderMDD.push_back(MetaDataDecl("name",	MD_STRING,		"", 		false));
   folderMDD.push_back(MetaDataDecl("desc",	MD_MULTILINE_STRING,	"", 		false));
-  folderMDD.push_back(MetaDataDecl("image",	MD_IMAGE_PATH,		"", 		false));
-  folderMDD.push_back(MetaDataDecl("thumbnail",	MD_IMAGE_PATH,		"", 		false));
+  folderMDD.push_back(MetaDataDecl("image",	MD_PATH,		"", 		false));
+  folderMDD.push_back(MetaDataDecl("thumbnail",	MD_PATH,		"", 		false));
   folderMDD.push_back(MetaDataDecl("hidden",	MD_BOOL,		"false",	false));
 }
 
@@ -78,7 +80,7 @@ MetaDataList MetaDataList::createFromXML(MetaDataListType type, pugi::xml_node n
 		{
 			// if it's a path, resolve relative paths
 			std::string value = md.text().get();
-			if(iter->type == MD_IMAGE_PATH)
+			if(iter->type == MD_PATH)
 				value = resolvePath(value, relativeTo, true).generic_string();
 
 			mdl.set(iter->key, value);
@@ -106,7 +108,7 @@ void MetaDataList::appendToXML(pugi::xml_node parent, bool ignoreDefaults, const
 			
 			// try and make paths relative if we can
 			std::string value = mapIter->second;
-			if(mddIter->type == MD_IMAGE_PATH)
+			if(mddIter->type == MD_PATH)
 				value = makeRelativePath(value, relativeTo, true).generic_string();
 
 			parent.append_child(mapIter->first.c_str()).text().set(value.c_str());
