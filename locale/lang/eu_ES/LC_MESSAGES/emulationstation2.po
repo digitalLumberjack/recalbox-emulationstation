@@ -1,5 +1,12 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Emulationstation 2.0RC1 BASQUE po\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-26 22:02+0100\n"
+"PO-Revision-Date: 2016-11-12 16:07+0100\n"
+"Last-Translator: Xabier Calvo <xabi.calvo@gmail.com>\n"
+"Language-Team: BASQUE\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -92,12 +99,13 @@ msgstr "gelditu (orain artekoa gordeta)"
 msgid "GAME %i OF %i"
 msgstr "%i/%i JOKOA"
 
-#: 
-msgid "WE CAN'T FIND ANY SYSTEMS!\n"
+msgid ""
+"WE CAN'T FIND ANY SYSTEMS!\n"
 "CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
 "\n"
 "VISIT RECALBOX.COM FOR MORE INFORMATION."
-msgstr "EZ DA JOKORIK AURKITU SISTEMAN !\n"
+msgstr ""
+"EZ DA JOKORIK AURKITU SISTEMAN !\n"
 "MESEDEZ, JARRAITU ARGIBIDEAK JOKOAK GEHITZEKO.\n"
 "\n"
 "RECALBOX.COM-EN BISITA GAITZAZU INFORMAZIO GEHIAGO ESKURATZEKO"
@@ -259,17 +267,17 @@ msgstr "X SAKATU KODI ABIARAZTEKO"
 
 #: 
 msgid "SECURITY"
-msgstr ""
+msgstr "SEGURTASUNA"
 
 #: 
 msgid "ENFORCE SECURITY"
-msgstr ""
+msgstr "ZIURTATU SEGURTASUNA"
 
 #: 
 msgid "ROOT PASSWORD"
-msgstr ""
+msgstr "ROOT PASAHITZA"
 
-#: 
+#:
 msgid "THE SYSTEM WILL NOW REBOOT"
 msgstr "SISTEMA BERRABIARAZIKO DA"
 
@@ -315,7 +323,7 @@ msgstr "RETROACHIVEMENTS"
 
 #: 
 msgid "HARDCORE MODE"
-msgstr ""
+msgstr "HARDCORE MODUA"
 
 #: 
 msgid "USERNAME"
@@ -637,11 +645,11 @@ msgstr "sartu nukleoa"
 
 #: 
 msgid "Ratio"
-msgstr ""
+msgstr "Ratioa"
 
-#: 
+#:
 msgid "enter ratio"
-msgstr ""
+msgstr "sartu ratioa"
 
 #: 
 msgid "Name"
@@ -754,8 +762,8 @@ msgstr "sartu azken jokatutako data"
 #: 
 msgid "%i GAME AVAILABLE"
 msgid_plural "%i GAMES AVAILABLE"
-msgstr[0] "%i JOKOA ERABILGARRI"
-msgstr[1] "%i JOKOAK ERABILGARRI"
+msgstr[0] "JOKO %i  ERABILGARRI"
+msgstr[1] "%i JOKO ERABILGARRI"
 
 #: 
 msgid "%i FAVORITE"
@@ -996,52 +1004,57 @@ msgstr "ITXARON MESEDEZ..."
 
 #: 
 msgid "REALLY SHUTDOWN WITHOUT SAVING METADATAS?"
-msgstr ""
+msgstr "BENETAN METADATUAK GORDE GABE ITZALI?"
 
 #: 
 msgid "FAST SHUTDOWN SYSTEM"
-msgstr ""
+msgstr "SISTEMAREN ITZALTZE AZKARRA"
 
 #: 
-msgid "WE CAN'T FIND ANY SYSTEMS!\n"
+msgid ""
+"WE CAN'T FIND ANY SYSTEMS!\n"
 "CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
 "\n"
 "VISIT RECALBOX.FR FOR MORE INFORMATION."
 msgstr ""
+"EZIN DA SISTEMARIK AURKITU!\n"
+"BAIEZTATU SISTEMAKO KONFIGURAZIO FITXATEGIEN HELBIDEAK ZUZENAK DIRELA ETA ZURE JOKOEN DIREKTORIOAN GUTXIENEZ FORMATU ZUZENEKO JOKO BAT DAGOELA.\n"
+"\n"
+"BISITATU RECALBOX.FR INFORMAZIO GEHIAGORAKO."
 
 #: 
 msgid "ON SCREEN KEYBOARD"
-msgstr ""
+msgstr "PANTAILAKO TEKLATUA"
 
 #: 
 msgid "SHIFTS FOR UPPER,LOWER, AND SPECIAL"
-msgstr ""
+msgstr "SHIFT ERABILI MAIUSKULA, MINUSKULA ETA BEREZIENTZAT "
 
 #: 
 msgid "SPACE"
-msgstr ""
+msgstr "HUTSUNEA"
 
 #: 
 msgid "DELETE A CHAR"
-msgstr ""
+msgstr "EZABATU HIZKIA"
 
 #: 
 msgid "SHIFT"
-msgstr ""
+msgstr "MAIUS"
 
 #: 
 msgid "STOP EDITING"
-msgstr ""
+msgstr "GELDITU EDIZIOA"
 
 #: 
 msgid "MOVE CURSOR"
-msgstr ""
+msgstr "MUGITU KRUTSOREA"
 
 #: 
 msgid "EDIT"
-msgstr ""
+msgstr "EDITATU"
 
 #: 
 msgid "ACCEPT RESULT"
-msgstr ""
+msgstr "ONARTU EMAITZA"
 
