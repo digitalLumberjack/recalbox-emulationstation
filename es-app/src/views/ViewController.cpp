@@ -10,6 +10,7 @@
 #include "views/gamelist/VideoGameListView.h"
 #include "views/gamelist/GridGameListView.h"
 #include "guis/GuiMenu.h"
+#include "guis/GuiDetectDevice.h"
 #include "guis/GuiMsgBox.h"
 #include "animations/LaunchAnimation.h"
 #include "animations/MoveCameraAnimation.h"

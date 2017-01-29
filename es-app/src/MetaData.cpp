@@ -29,7 +29,7 @@ void initMetadata() {
   gameMDD.push_back(MetaDataDecl("region",	MD_STRING,		"",			false,		_("Region"),			_("enter region")));
   gameMDD.push_back(MetaDataDecl("romtype",	MD_STRING,		"Original",		false,		_("Romtype"),			_("enter romtype")));
   gameMDD.push_back(MetaDataDecl("hidden",	MD_BOOL,		"false",		false,		_("Hidden"),			_("set hidden")));
-  gameMOD.push_back(MetaDataDecl("video",	MD_IMAGE_PATH	,		"", 			false,		_("video"),			_("enter path to video")));
+  gameMDD.push_back(MetaDataDecl("video",	MD_IMAGE_PATH	,		"", 			false,		_("video"),			_("enter path to video")));
 
   gameMDD.push_back(MetaDataDecl("playcount",	MD_INT,			"0",			true,		_("Play count"),		_("enter number of times played")));
   gameMDD.push_back(MetaDataDecl("lastplayed",	MD_TIME,		"0", 			true,		_("Last played"),		_("enter last played date")));

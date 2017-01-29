@@ -2,7 +2,7 @@
 #define _VIDEOCOMPONENT_H_
 
 #include "platform.h"
-#include GLHEADER
+#include "platform_gl.h"
 
 #include "GuiComponent.h"
 #include "ImageComponent.h"
