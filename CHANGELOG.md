@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix : Background musics are now played randomly
 - Added custom favorites icons for each system
 - Only save changed metadata when saving gamelist.xml (improve shutdown time)
+- White Screen of Death fix by adding user-configurable VRAM usage limit
 
 ### Added
 - Favorites as boolean in metadata
