@@ -243,7 +243,7 @@ msgstr "EMPEZAR LA ACTUALIZACIÓN"
 
 #: 
 msgid "KODI SETTINGS"
-msgstr "COFIGURACIÓN DE KODI"
+msgstr "CONFIGURACIÓN DE KODI"
 
 #: 
 msgid "ENABLE KODI"
