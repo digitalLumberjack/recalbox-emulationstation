@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Fixed small typo in ES spanish translation.
 - Ignore all known bios and devices for arcade/neogeo platform
 - Fix Bug with small SHARE partition
 - Add new Traditional Chinese Language
