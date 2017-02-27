@@ -23,12 +23,13 @@ std::string strToUpper(const std::string& from)
     return boost::locale::to_upper(str);
 }
 
-
+#ifdef _MSC_VER
 #if _MSC_VER < 1800
 float round(float num)
 {
 	return (float)((int)(num + 0.5f));
 }
+#endif
 #endif
 
 Eigen::Affine3f& roundMatrix(Eigen::Affine3f& mat)
