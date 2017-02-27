@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fix : Background musics are now played randomly
 - Added custom favorites icons for each system
 - Only save changed metadata when saving gamelist.xml (improve shutdown time)
+- Fix compile error related to ambiguous function on Linux.
 
 ### Added
 - Favorites as boolean in metadata
