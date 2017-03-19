@@ -941,7 +941,7 @@ msgstr "КЛАВИАТУРА"
 
 #: 
 msgid "GAMEPAD %i"
-msgstr "ГЕЙМПАД %i"
+msgstr "КОНТРОЛЛЕР %i"
 
 #: 
 msgid "HOLD ANY BUTTON TO SKIP"
