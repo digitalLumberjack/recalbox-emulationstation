@@ -15,6 +15,7 @@ public:
 	~Window();
 
 	void pushGui(GuiComponent* gui);
+	void displayMessage(std::string message);
 	void removeGui(GuiComponent* gui);
 	GuiComponent* peekGui();
 
@@ -23,7 +24,7 @@ public:
 	void update(int deltaTime);
 	void render();
 
-	bool init(unsigned int width = 0, unsigned int height = 0);
+    bool init(unsigned int width = 0, unsigned int height = 0, bool initRenderer = true);
 	void deinit();
 
 	void normalizeNextUpdate();
@@ -37,14 +38,22 @@ public:
 	void renderHelpPromptsEarly(); // used to render HelpPrompts before a fade
 	void setHelpPrompts(const std::vector<HelpPrompt>& prompts, const HelpStyle& style);
 
+	void renderShutdownScreen();
+
 private:
 	void onSleep();
 	void onWake();
+	void renderWaitingScreen(const std::string& text);
+
+	// Returns true if at least one component on the stack is processing
+	bool isProcessing();
+	void renderScreenSaver();
 
 	HelpComponent* mHelp;
 	ImageComponent* mBackgroundOverlay;
 
 	std::vector<GuiComponent*> mGuiStack;
+	std::vector<std::string> mMessages;
 
 	std::vector< std::shared_ptr<Font> > mDefaultFonts;
 
@@ -61,4 +70,6 @@ private:
 	unsigned int mTimeSinceLastInput;
 
 	bool mRenderedHelpPrompts;
+        
+	bool launchKodi;
 };

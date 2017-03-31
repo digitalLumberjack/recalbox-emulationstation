@@ -5,8 +5,7 @@
 #include <string>
 #include "platform.h"
 #include <Eigen/Dense>
-#include GLHEADER
-//#include "Font.h"
+#include "platform_gl.h"
 
 class GuiComponent;
 class Font;
@@ -18,10 +17,6 @@ namespace Renderer
 {
 	bool init(int w, int h);
 	void deinit();
-
-	//doesn't do anything right now
-	void onInit();
-	void onDeinit();
 
 	unsigned int getScreenWidth();
 	unsigned int getScreenHeight();

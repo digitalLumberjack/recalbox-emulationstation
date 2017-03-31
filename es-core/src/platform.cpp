@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include <boost/filesystem.hpp>
 #include <iostream>
+#include <sys/statvfs.h>
+#include <sstream>
+#include "Settings.h"
+
+#include <fstream>
+
+
+#ifdef WIN32
+#include <codecvt>
+#endif
 
 std::string getHomePath()
 {
@@ -40,7 +50,7 @@ int runShutdownCommand()
 #ifdef WIN32 // windows
 	return system("shutdown -s -t 0");
 #else // osx / linux
-	return system("sudo shutdown -h now");
+	return system("poweroff");
 #endif
 }
 
@@ -49,6 +59,20 @@ int runRestartCommand()
 #ifdef WIN32 // windows
 	return system("shutdown -r -t 0");
 #else // osx / linux
-	return system("sudo shutdown -r now");
+	return system("reboot");
+#endif
+}
+
+int runSystemCommand(const std::string& cmd_utf8)
+{
+#ifdef WIN32
+	// on Windows we use _wsystem to support non-ASCII paths
+	// which requires converting from utf8 to a wstring
+	typedef std::codecvt_utf8<wchar_t> convert_type;
+	std::wstring_convert<convert_type, wchar_t> converter;
+	std::wstring wchar_str = converter.from_bytes(cmd_utf8);
+	return _wsystem(wchar_str.c_str());
+#else
+	return system((cmd_utf8 + " 2> /recalbox/share/system/logs/es_launch_stderr.log | head -300 > /recalbox/share/system/logs/es_launch_stdout.log").c_str());
 #endif
 }

@@ -3,10 +3,11 @@
 #include "Window.h"
 #include "Log.h"
 #include "Util.h"
+#include "Locale.h"
 
 DateTimeComponent::DateTimeComponent(Window* window, DisplayMode dispMode) : GuiComponent(window), 
 	mEditing(false), mEditIndex(0), mDisplayMode(dispMode), mRelativeUpdateAccumulator(0), 
-	mColor(0x777777FF), mFont(Font::get(FONT_SIZE_SMALL, FONT_PATH_LIGHT)), mUppercase(false), mSizeSet(false)
+	mColor(0x777777FF), mFont(Font::get(FONT_SIZE_SMALL, FONT_PATH_LIGHT)), mUppercase(false), mAutoSize(true)
 {
 	updateTextCache();
 }
@@ -22,7 +23,7 @@ bool DateTimeComponent::input(InputConfig* config, Input input)
 	if(input.value == 0)
 		return false;
 
-	if(config->isMappedTo("a", input))
+	if(config->isMappedTo("b", input))
 	{
 		if(mDisplayMode != DISP_RELATIVE_TO_NOW) //don't allow editing for relative times
 			mEditing = !mEditing;
@@ -45,7 +46,7 @@ bool DateTimeComponent::input(InputConfig* config, Input input)
 
 	if(mEditing)
 	{
-		if(config->isMappedTo("b", input))
+		if(config->isMappedTo("a", input))
 		{
 			mEditing = false;
 			mTime = mTimeBeforeEdit;
@@ -54,9 +55,9 @@ bool DateTimeComponent::input(InputConfig* config, Input input)
 		}
 
 		int incDir = 0;
-		if(config->isMappedTo("up", input))
+		if(config->isMappedTo("up", input) || config->isMappedTo("pageup", input))
 			incDir = 1;
-		else if(config->isMappedTo("down", input))
+		else if(config->isMappedTo("down", input) || config->isMappedTo("pagedown", input))
 			incDir = -1;
 
 		if(incDir != 0)
@@ -191,6 +192,9 @@ DateTimeComponent::DisplayMode DateTimeComponent::getCurrentDisplayMode() const
 std::string DateTimeComponent::getDisplayString(DisplayMode mode) const
 {
 	std::string fmt;
+	char strbuf[256];
+	int n;
+
 	switch(mode)
 	{
 	case DISP_DATE:
@@ -205,28 +209,38 @@ std::string DateTimeComponent::getDisplayString(DisplayMode mode) const
 			using namespace boost::posix_time;
 
 			if(mTime == not_a_date_time)
-				return "never";
+			  return _("never");
 
 			ptime now = second_clock::universal_time();
 			time_duration dur = now - mTime;
 
 			if(dur < seconds(2))
-				return "just now";
-			if(dur < seconds(60))
-				return std::to_string((long long)dur.seconds()) + " secs ago";
-			if(dur < minutes(60))
-				return std::to_string((long long)dur.minutes()) + " min" + (dur < minutes(2) ? "" : "s") + " ago";
-			if(dur < hours(24))
-				return std::to_string((long long)dur.hours()) + " hour" + (dur < hours(2) ? "" : "s") + " ago";
+			  return _("just now");
+			if(dur < seconds(60)) {
+			  n = dur.seconds();
+			  snprintf(strbuf, 256, ngettext("%i sec ago", "%i secs ago", n).c_str(), n);
+			  return strbuf;
+			}
+			if(dur < minutes(60)) {
+			  n = dur.minutes();
+			  snprintf(strbuf, 256, ngettext("%i min ago", "%i mins ago", n).c_str(), n);
+			  return strbuf;
+			}
+			if(dur < hours(24)) {
+			  n = dur.hours();
+			  snprintf(strbuf, 256, ngettext("%i hour ago", "%i hours ago", n).c_str(), n);
+			  return strbuf;
+			}
 
-			long long days = (long long)(dur.hours() / 24);
-			return std::to_string(days) + " day" + (days < 2 ? "" : "s") + " ago";
+			n = dur.hours() / 24;
+			snprintf(strbuf, 256, ngettext("%i day ago", "%i days ago", n).c_str(), n);
+			return strbuf;
 		}
 		break;
 	}
 	
 	if(mTime == boost::posix_time::not_a_date_time)
-		return "unknown";
+	  return _("unknown");
 
 	boost::posix_time::time_facet* facet = new boost::posix_time::time_facet();
 	facet->format(fmt.c_str());
@@ -253,8 +267,14 @@ void DateTimeComponent::updateTextCache()
 	std::shared_ptr<Font> font = getFont();
 	mTextCache = std::unique_ptr<TextCache>(font->buildTextCache(dispString, 0, 0, mColor));
 
-	if(!mSizeSet)
+	if(mAutoSize)
+	{
 		mSize = mTextCache->metrics.size;
+
+		mAutoSize = false;
+		if(getParent())
+			getParent()->onSizeChanged();
+	}
 
 	//set up cursor positions
 	mCursorBoxes.clear();
@@ -298,7 +318,7 @@ void DateTimeComponent::setFont(std::shared_ptr<Font> font)
 
 void DateTimeComponent::onSizeChanged()
 {
-	mSizeSet = true;
+	mAutoSize = false;
 	updateTextCache();
 }
 
@@ -310,13 +330,19 @@ void DateTimeComponent::setUppercase(bool uppercase)
 
 void DateTimeComponent::applyTheme(const std::shared_ptr<ThemeData>& theme, const std::string& view, const std::string& element, unsigned int properties)
 {
-	GuiComponent::applyTheme(theme, view, element, properties);
-
-	using namespace ThemeFlags;
-
 	const ThemeData::ThemeElement* elem = theme->getElement(view, element, "datetime");
 	if(!elem)
 		return;
+
+	// We set mAutoSize BEFORE calling GuiComponent::applyTheme because it calls
+	// setSize(), which will call updateTextCache(), which will reset mSize if 
+	// mAutoSize == true, ignoring the theme's value.
+	if(properties & ThemeFlags::SIZE)
+		mAutoSize = !elem->has("size");
+
+	GuiComponent::applyTheme(theme, view, element, properties);
+
+	using namespace ThemeFlags;
 
 	if(properties & COLOR && elem->has("color"))
 		setColor(elem->get<unsigned int>("color"));

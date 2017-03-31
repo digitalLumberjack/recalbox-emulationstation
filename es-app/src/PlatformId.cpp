@@ -23,11 +23,13 @@ namespace PlatformIds
 		"atarijaguarcd",
 		"atarixe",
 		"colecovision",
-		"c64", // commodore 64
+		"c64", // commodore 64,
+		"fds", // Nintendo Family Computer Disk System
 		"intellivision",
 		"macintosh",
 		"xbox",
 		"xbox360",
+		"msx",
 		"neogeo",
 		"ngp", // neo geo pocket
 		"ngpc", // neo geo pocket color
@@ -56,11 +58,23 @@ namespace PlatformIds
 		"ps4",
 		"psvita",
 		"psp", // playstation portable
+		"sg1000", // Sega SG1000
 		"snes", // super nintendo entertainment system
 		"pcengine", // turbografx-16/pcengine
 		"wonderswan",
 		"wonderswancolor",
 		"zxspectrum",
+		"virtualboy",
+		"gw",
+		"pcenginecd",
+		"supergrafx",
+		"prboom",
+		"vectrex",
+		"lutro",
+		"cavestory",
+		"odyssey2",
+		"zx81",
+		"moonlight",
 
 		"ignore", // do not allow scraping for this system
 		"invalid"

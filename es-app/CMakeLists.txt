@@ -10,12 +10,14 @@ set(ES_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/SystemData.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/VolumeControl.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Gamelist.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/NetworkThread.h
 
     # GuiComponents
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/AsyncReqComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/RatingComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/ScraperSearchComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/TextListComponent.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/components/FileSystemSelectorComponent.h
 
     # Guis
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiFastSelect.h
@@ -26,11 +28,14 @@ set(ES_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiSettings.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMulti.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperStart.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiUpdate.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiRomsManager.h
 
     # Scrapers
     ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/Scraper.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/GamesDBScraper.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/TheArchiveScraper.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/MamedbScraper.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/ScreenscraperScraper.h
 
     # Views
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/gamelist/BasicGameListView.h
@@ -44,6 +49,10 @@ set(ES_HEADERS
     # Animations
     ${CMAKE_CURRENT_SOURCE_DIR}/src/animations/LaunchAnimation.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/animations/MoveCameraAnimation.h
+
+    # Recalbox
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/RecalboxSystem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/LibretroRatio.h
 )
 
 set(ES_SOURCES
@@ -57,11 +66,14 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/SystemData.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/VolumeControl.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Gamelist.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/NetworkThread.cpp
+
 
     # GuiComponents
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/AsyncReqComponent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/RatingComponent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/components/ScraperSearchComponent.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/components/FileSystemSelectorComponent.cpp
 
     # Guis
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiFastSelect.cpp
@@ -72,11 +84,14 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiSettings.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMulti.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperStart.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiUpdate.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiRomsManager.cpp
 
     # Scrapers
     ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/Scraper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/GamesDBScraper.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/TheArchiveScraper.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/MamedbScraper.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/scrapers/ScreenscraperScraper.cpp
 
     # Views
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/gamelist/BasicGameListView.cpp
@@ -86,6 +101,9 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/gamelist/GridGameListView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/SystemView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/ViewController.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/RecalboxSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/LibretroRatio.cpp
 )
 
 #-------------------------------------------------------------------------------
@@ -99,17 +117,17 @@ endif()
 #-------------------------------------------------------------------------------
 # define target
 include_directories(${COMMON_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
-add_executable(emulationstation ${ES_SOURCES} ${ES_HEADERS})
+add_executable(emulationstation ${ES_SOURCES} ${ES_HEADERS} src/guis/GuiLoading.cpp src/guis/GuiLoading.h)
 target_link_libraries(emulationstation ${COMMON_LIBRARIES} es-core)
 
 # special properties for Windows builds
 if(MSVC)
-    #show console in debug builds, but not in proper release builds
-    #Note that up to CMake 2.8.10 this feature is broken: http://public.kitware.com/Bug/view.php?id=12566
-    set_target_properties(emulationstation PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:CONSOLE")
-    set_target_properties(emulationstation PROPERTIES COMPILE_DEFINITIONS_DEBUG "_CONSOLE")
-    set_target_properties(emulationstation PROPERTIES LINK_FLAGS_RELWITHDEBINFO "/SUBSYSTEM:CONSOLE")
-    set_target_properties(emulationstation PROPERTIES COMPILE_DEFINITIONS_RELWITHDEBINFO "_CONSOLE")
+    # Always compile with the "WINDOWS" subsystem to avoid console window flashing at startup 
+    # when --debug is not set (see es-core/src/main.cpp for explanation).
+    # The console will still be shown if launched with --debug.
+    # Note that up to CMake 2.8.10 this feature is broken: http://public.kitware.com/Bug/view.php?id=12566
+    set_target_properties(emulationstation PROPERTIES LINK_FLAGS_DEBUG "/SUBSYSTEM:WINDOWS")
+    set_target_properties(emulationstation PROPERTIES LINK_FLAGS_RELWITHDEBINFO "/SUBSYSTEM:WINDOWS")
     set_target_properties(emulationstation PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS")
     set_target_properties(emulationstation PROPERTIES LINK_FLAGS_MINSIZEREL "/SUBSYSTEM:WINDOWS")
 endif()
@@ -133,8 +151,8 @@ SET(CPACK_RESOURCE_FILE README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alec Lofquist <allofquist@yahoo.com>")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "misc")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libsdl2-2.0-0, libboost-system1.54.0, libboost-filesystem1.54.0, libfreeimage3, libfreetype6, libcurl3, libasound2")
-SET(CPACK_DEBIAN_PACKAGE_BUILDS_DEPENDS "debhelper (>= 8.0.0), cmake, g++ (>= 4.8), libsdl2-dev, libboost-system-dev, libboost-filesystem-dev, libboost-date-time-dev, libfreeimage-dev, libfreetype6-dev, libeigen3-dev, libcurl4-openssl-dev, libasound2-dev, libgl1-mesa-dev")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libsdl2-2.0-0, libsdl2-mixer-2.0-0, libboost-system1.54.0,libboost-thread1.54.0, libboost-filesystem1.54.0, libfreeimage3, libfreetype6, libcurl3, libasound2")
+SET(CPACK_DEBIAN_PACKAGE_BUILDS_DEPENDS "debhelper (>= 8.0.0), cmake, g++ (>= 4.8), libsdl2-dev, libsdl2-mixer-dev, libboost-system-dev, libboost-thread-dev , libboost-filesystem-dev, libboost-date-time-dev, libfreeimage-dev, libfreetype6-dev, libeigen3-dev, libcurl4-openssl-dev, libasound2-dev, libgl1-mesa-dev")
 
 SET(CPACK_PACKAGE_VENDOR "emulationstation.org")
 SET(CPACK_PACKAGE_VERSION "2.0.0~rc1")

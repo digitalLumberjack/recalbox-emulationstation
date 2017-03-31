@@ -31,7 +31,11 @@ void RatingComponent::setValue(const std::string& value)
 
 std::string RatingComponent::getValue() const
 {
-	return std::to_string((long double)mValue);
+	// do not use std::to_string here as it will use the current locale
+	// and that sometimes encodes decimals as commas
+	std::stringstream ss;
+	ss << mValue;
+	return ss.str();
 }
 
 void RatingComponent::onSizeChanged()
@@ -123,7 +127,7 @@ void RatingComponent::render(const Eigen::Affine3f& parentTrans)
 
 bool RatingComponent::input(InputConfig* config, Input input)
 {
-	if(config->isMappedTo("a", input) && input.value != 0)
+	if(config->isMappedTo("b", input) && input.value != 0)
 	{
 		mValue += 1.f / NUM_RATING_STARS;
 		if(mValue > 1.0f)
@@ -164,6 +168,6 @@ void RatingComponent::applyTheme(const std::shared_ptr<ThemeData>& theme, const 
 std::vector<HelpPrompt> RatingComponent::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts;
-	prompts.push_back(HelpPrompt("a", "add star"));
+	prompts.push_back(HelpPrompt("b", "add star"));
 	return prompts;
 }

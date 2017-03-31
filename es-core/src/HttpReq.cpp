@@ -22,7 +22,7 @@ std::string HttpReq::urlEncode(const std::string &s)
         {
             escaped.append("%");
             char buf[3];
-            sprintf(buf, "%.2X", s[i]);
+            sprintf(buf, "%.2X", (unsigned char)s[i]);
             escaped.append(buf);
         }
     }
@@ -95,8 +95,9 @@ HttpReq::~HttpReq()
 
 		CURLMcode merr = curl_multi_remove_handle(s_multi_handle, mHandle);
 
-		if(merr != CURLM_OK)
+        if(merr != CURLM_OK) {
 			LOG(LogError) << "Error removing curl_easy handle from curl_multi: " << curl_multi_strerror(merr);
+        }
 
 		curl_easy_cleanup(mHandle);
 	}
@@ -117,7 +118,7 @@ HttpReq::Status HttpReq::status()
 
 		int msgs_left;
 		CURLMsg* msg;
-		while(msg = curl_multi_info_read(s_multi_handle, &msgs_left))
+        while((msg = curl_multi_info_read(s_multi_handle, &msgs_left)))
 		{
 			if(msg->msg == CURLMSG_DONE)
 			{

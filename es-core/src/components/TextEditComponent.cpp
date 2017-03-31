@@ -3,7 +3,9 @@
 #include "resources/Font.h"
 #include "Window.h"
 #include "Renderer.h"
+
 #include "Util.h"
+#include "Locale.h"
 
 #define TEXT_PADDING_HORIZ 10
 #define TEXT_PADDING_VERT 2
@@ -13,7 +15,8 @@
 
 TextEditComponent::TextEditComponent(Window* window) : GuiComponent(window),
 	mBox(window, ":/textinput_ninepatch.png"), mFocused(false), 
-	mScrollOffset(0.0f, 0.0f), mCursor(0), mEditing(false), mFont(Font::get(FONT_SIZE_MEDIUM, FONT_PATH_LIGHT))
+	mScrollOffset(0.0f, 0.0f), mCursor(0), mEditing(false), mFont(Font::get(FONT_SIZE_MEDIUM, FONT_PATH_LIGHT)), 
+	mCursorRepeatDir(0)
 {
 	addChild(&mBox);
 	
@@ -42,7 +45,7 @@ void TextEditComponent::onSizeChanged()
 
 void TextEditComponent::setValue(const std::string& val)
 {
-	mText = val;
+        mText = val;
 	onTextChanged();
 }
 
@@ -60,12 +63,13 @@ void TextEditComponent::textInput(const char* text)
 		{
 			if(mCursor > 0)
 			{
-				mText.erase(mText.begin() + mCursor - 1, mText.begin() + mCursor);
-				mCursor--;
+				size_t newCursor = Font::getPrevCursor(mText, mCursor);
+				mText.erase(mText.begin() + newCursor, mText.begin() + mCursor);
+				mCursor = newCursor;
 			}
 		}else{
 			mText.insert(mCursor, text);
-			mCursor++;
+			mCursor += strlen(text);
 		}
 	}
 
@@ -97,7 +101,7 @@ bool TextEditComponent::input(InputConfig* config, Input input)
 		return false;
 	}
 
-	if(config->isMappedTo("a", input) && mFocused && !mEditing)
+	if(config->isMappedTo("b", input) && mFocused && !mEditing)
 	{
 		startEditing();
 		return true;
@@ -117,7 +121,7 @@ bool TextEditComponent::input(InputConfig* config, Input input)
 			return true;
 		}
 
-		if((config->getDeviceId() == DEVICE_KEYBOARD && input.id == SDLK_ESCAPE) || (config->getDeviceId() != DEVICE_KEYBOARD && config->isMappedTo("b", input)))
+		if((config->getDeviceId() == DEVICE_KEYBOARD && input.id == SDLK_ESCAPE) || (config->getDeviceId() != DEVICE_KEYBOARD && config->isMappedTo("a", input)))
 		{
 			stopEditing();
 			return true;
@@ -164,13 +168,7 @@ void TextEditComponent::updateCursorRepeat(int deltaTime)
 
 void TextEditComponent::moveCursor(int amt)
 {
-	mCursor += amt;
-
-	if(mCursor < 0)
-		mCursor = 0;
-	if(mCursor >= (int)mText.length())
-		mCursor = mText.length();
-
+	mCursor = Font::moveCursor(mText, mCursor, amt);
 	onCursorChanged();
 }
 
@@ -283,10 +281,10 @@ std::vector<HelpPrompt> TextEditComponent::getHelpPrompts()
 	std::vector<HelpPrompt> prompts;
 	if(mEditing)
 	{
-		prompts.push_back(HelpPrompt("up/down/left/right", "move cursor"));
-		prompts.push_back(HelpPrompt("b", "stop editing"));
+		prompts.push_back(HelpPrompt("up/down/left/right", _("MOVE CURSOR")));
+		prompts.push_back(HelpPrompt("a", _("STOP EDITING")));
 	}else{
-		prompts.push_back(HelpPrompt("a", "edit"));
+		prompts.push_back(HelpPrompt("b", _("EDIT")));
 	}
 	return prompts;
 }

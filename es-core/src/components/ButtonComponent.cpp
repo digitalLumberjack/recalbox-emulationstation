@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Util.h"
 #include "Log.h"
+#include "Locale.h"
 
 ButtonComponent::ButtonComponent(Window* window, const std::string& text, const std::string& helpText, const std::function<void()>& func) : GuiComponent(window),
 	mBox(window, ":/button.png"),
@@ -28,7 +29,7 @@ void ButtonComponent::setPressedFunc(std::function<void()> f)
 
 bool ButtonComponent::input(InputConfig* config, Input input)
 {
-	if(config->isMappedTo("a", input) && input.value != 0)
+	if(config->isMappedTo("b", input) && input.value != 0)
 	{
 		if(mPressedFunc && mEnabled)
 			mPressedFunc();
@@ -40,7 +41,7 @@ bool ButtonComponent::input(InputConfig* config, Input input)
 
 void ButtonComponent::setText(const std::string& text, const std::string& helpText)
 {
-	mText = strToUpper(text);
+        mText = strToUpper(text);
 	mHelpText = helpText;
 	
 	mTextCache = std::unique_ptr<TextCache>(mFont->buildTextCache(mText, 0, 0, getCurTextColor()));
@@ -76,6 +77,14 @@ void ButtonComponent::updateImage()
 		mBox.setImagePath(":/button_filled.png");
 		mBox.setCenterColor(0x770000FF);
 		mBox.setEdgeColor(0x770000FF);
+		return;
+	}
+
+	// If a new color has been set.  
+	if (mNewColor) {
+		mBox.setImagePath(":/button_filled.png");
+		mBox.setCenterColor(mModdedColor);
+		mBox.setEdgeColor(mModdedColor);
 		return;
 	}
 
@@ -116,6 +125,6 @@ unsigned int ButtonComponent::getCurTextColor() const
 std::vector<HelpPrompt> ButtonComponent::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts;
-	prompts.push_back(HelpPrompt("a", mHelpText.empty() ? mText.c_str() : mHelpText.c_str()));
+	prompts.push_back(HelpPrompt("b", mHelpText.empty() ? mText.c_str() : mHelpText.c_str()));
 	return prompts;
 }
