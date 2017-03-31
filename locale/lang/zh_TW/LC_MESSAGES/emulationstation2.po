@@ -10,7 +10,7 @@ msgstr ""
 
 #: 
 msgid "AN UPDATE IS AVAILABLE FOR YOUR RECALBOX"
-msgstr "您的 recalbox 版本已有可用的更新"
+msgstr "您的 RECALBOX 有可更新的版本囉！"
 
 #: 
 msgid "CANCEL"
@@ -26,7 +26,7 @@ msgstr "發行日期"
 
 #: 
 msgid "Developer"
-msgstr "開發者"
+msgstr "開發商"
 
 #: 
 msgid "Publisher"
@@ -97,17 +97,19 @@ msgid "WE CAN'T FIND ANY SYSTEMS!\n"
 "CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
 "\n"
 "VISIT RECALBOX.COM FOR MORE INFORMATION."
-msgstr ""
+msgstr "找不到遊戲資料！請檢查遊戲目錄設定！\n請確保在這些遊戲目錄下至少有一款遊戲。\n歡迎加入正體中文臉書樹莓復古派社團一起討論。\n或至 RECALBOX.COM 官方網站以獲得更多消息。"
 
 #: 
 msgid "%i GAME SUCCESSFULLY SCRAPED!"
 msgid_plural "%i GAMES SUCCESSFULLY SCRAPED!"
 msgstr[0] "%i 個遊戲資料收集成功！"
+msgstr[1] "%i 個遊戲資料收集成功！"
 
 #: 
 msgid "%i GAME SKIPPED."
 msgid_plural "%i GAMES SKIPPED."
 msgstr[0] "略過了 %i 個遊戲。"
+msgstr[1] "略過了 %i 個遊戲。"
 
 #: 
 msgid "OK"
@@ -128,8 +130,7 @@ msgstr "儲存"
 #: 
 msgid "THIS WILL DELETE A FILE!\n"
 "ARE YOU SURE?"
-msgstr "此操作將刪除檔案!\n"
-"是否確定？"
+msgstr "此操作將刪除檔案!\n確定要這麼做嗎？"
 
 #: 
 msgid "YES"
@@ -250,7 +251,7 @@ msgstr "開機自動啟動 KODI "
 
 #: 
 msgid "START KODI WITH X"
-msgstr "按 X 鍵啟動 KODI"
+msgstr "按 X 鍵快速啟動 KODI"
 
 #: 
 msgid "SECURITY"
@@ -282,7 +283,7 @@ msgstr "平順遊戲畫面"
 
 #: 
 msgid "REWIND"
-msgstr "倒退功能"
+msgstr "倒轉功能"
 
 #: 
 msgid "AUTO SAVE/LOAD"
@@ -490,11 +491,7 @@ msgstr "核心"
 
 #: 
 msgid "YOU ARE GOING TO CONFIGURE A CONTROLLER. IF YOU HAVE ONLY ONE JOYSTICK, CONFIGURE THE DIRECTIONS KEYS AND SKIP JOYSTICK CONFIG BY HOLDING A BUTTON. IF YOU DO NOT HAVE A SPECIAL KEY FOR HOTKEY, CHOOSE THE SELECT BUTTON. SKIP ALL BUTTONS YOU DO NOT HAVE BY HOLDING A KEY. BUTTONS NAMES ARE BASED ON THE SNES CONTROLLER."
-msgstr "《您即將進行遊戲控制器的設定》\n"
-"請依畫面指示設定遊戲控制器方向鍵及按鍵\n"
-"按住A鍵可以略過不需要的按鍵設定\n"
-"若無足夠按鍵設定「熱鍵」請直接按SELECT鍵\n"
-"預設按鍵名稱定義來自超任手把"
+msgstr "《您即將進行遊戲控制器的設定》\n請依畫面指示設定遊戲控制器方向鍵及按鍵\n按住A鍵可以略過不需要的按鍵設定\n若無足夠按鍵設定「熱鍵」請直接按SELECT鍵\n預設按鍵名稱定義來自超任手把"
 
 #. GUIMENU
 #: 
@@ -590,7 +587,7 @@ msgstr "遊戲平台"
 
 #: 
 msgid "USER DECIDES ON CONFLICTS"
-msgstr "資料有衝突時由人工來處理"
+msgstr "資料有衝突時由人工手動來處理"
 
 #: 
 msgid "START"
@@ -599,8 +596,7 @@ msgstr "開始"
 #: 
 msgid "WARNING: SOME OF YOUR SELECTED SYSTEMS DO NOT HAVE A PLATFORM SET. RESULTS MAY BE EVEN MORE INACCURATE THAN USUAL!\n"
 "CONTINUE ANYWAY?"
-msgstr "警告：你選擇的遊戲平台並沒有找到資料。\n"
-"結果可能比原來的更不準確！是否繼續？"
+msgstr "警告：你選擇的遊戲平台並沒有找到資料。\n檔名或關鍵字可能不準確！是否要繼續？"
 
 #: 
 msgid "NO GAMES FIT THAT CRITERIA."
@@ -688,8 +684,7 @@ msgstr "輸入發行日期"
 
 #: 
 msgid "enter game developer"
-msgstr "輸入遊戲開發者"
-
+msgstr "輸入遊戲開發商"
 #: 
 msgid "enter game publisher"
 msgstr "輸入遊戲發行商"
@@ -708,7 +703,7 @@ msgstr "收藏"
 
 #: 
 msgid "enter favorite"
-msgstr "作為收藏"
+msgstr "加入收藏"
 
 #: 
 msgid "Region"
@@ -754,11 +749,13 @@ msgstr "輸入最後遊戲執行日期"
 msgid "%i GAME AVAILABLE"
 msgid_plural "%i GAMES AVAILABLE"
 msgstr[0] "%i 個可用遊戲"
+msgstr[1] "%i 個可用遊戲"
 
 #: 
 msgid "%i FAVORITE"
 msgid_plural "%i FAVORITES"
 msgstr[0] "%i 個收藏"
+msgstr[1] "%i 個收藏"
 
 #: 
 msgid "SCROLL"
@@ -828,21 +825,26 @@ msgstr "剛剛"
 msgid "%i sec ago"
 msgid_plural "%i secs ago"
 msgstr[0] "%i 秒之前"
+msgstr[1] "%i 秒之前"
+
 
 #: 
 msgid "%i min ago"
 msgid_plural "%i mins ago"
 msgstr[0] "%i 分鐘之前"
+msgstr[1] "%i 分鐘之前"
 
 #: 
 msgid "%i hour ago"
 msgid_plural "%i hours ago"
 msgstr[0] "%i 小時之前"
+msgstr[1] "%i 小時之前"
 
 #: 
 msgid "%i day ago"
 msgid_plural "%i days ago"
 msgstr[0] "%i 天之前"
+msgstr[1] "%i 天之前"
 
 #: 
 msgid "unknown"
@@ -860,6 +862,7 @@ msgstr "取消選擇"
 msgid "%i SELECTED"
 msgid_plural "%i SELECTED"
 msgstr[0] "%i 個已選擇"
+msgstr[1] "%i 個已選擇"
 
 #: 
 msgid "UP"
@@ -929,6 +932,7 @@ msgstr "-未定義-"
 msgid "HOLD FOR %iS TO SKIP"
 msgid_plural "HOLD FOR %iS TO SKIP"
 msgstr[0] "按住跳過  %i"
+msgstr[1] "按住跳過  %i"
 
 #. Config controllers missing translation
 #: 
@@ -955,6 +959,7 @@ msgstr "按鍵設定"
 msgid "%i GAMEPAD DETECTED"
 msgid_plural "%i GAMEPADS DETECTED"
 msgstr[0] "檢測到 %i支手把"
+msgstr[1] "檢測到 %i支手把"
 
 #: 
 msgid "NO GAMEPADS DETECTED"
@@ -997,14 +1002,11 @@ msgid "WE CAN'T FIND ANY SYSTEMS!\n"
 "CHECK THAT YOUR PATHS ARE CORRECT IN THE SYSTEMS CONFIGURATION FILE, AND YOUR GAME DIRECTORY HAS AT LEAST ONE GAME WITH THE CORRECT EXTENSION.\n"
 "\n"
 "VISIT RECALBOX.FR FOR MORE INFORMATION."
-msgstr "無法找到任何相關資料！\n"
-"請在系統設定中檢查遊戲目錄的設定，\n"
-"並確保在這些遊戲目錄中至少有一個遊戲。\n"
-"前往 recalbox.com 以獲得更多消息。"
+msgstr "找不到遊戲資料！請檢查遊戲目錄設定！\n請確保在這些遊戲目錄下至少有一款遊戲。\n歡迎加入正體中文臉書樹莓復古派社團一起討論。\n或至 RECALBOX.COM 官方網站以獲得更多消息。"
 
 #: 
 msgid "ON SCREEN KEYBOARD"
-msgstr ""
+msgstr "螢幕虛擬鍵盤"
 
 #: 
 msgid "SHIFTS FOR UPPER,LOWER, AND SPECIAL"
@@ -1012,11 +1014,11 @@ msgstr ""
 
 #: 
 msgid "SPACE"
-msgstr ""
+msgstr "空白"
 
 #: 
 msgid "DELETE A CHAR"
-msgstr ""
+msgstr "刪除字元"
 
 #: 
 msgid "SHIFT"
@@ -1024,49 +1026,48 @@ msgstr ""
 
 #: 
 msgid "STOP EDITING"
-msgstr ""
+msgstr "停止編輯"
 
 #: 
 msgid "MOVE CURSOR"
-msgstr ""
+msgstr "移動游標"
 
 #: 
 msgid "EDIT"
-msgstr ""
+msgstr "編輯"
 
 #: 
 msgid "ACCEPT RESULT"
-msgstr ""
+msgstr "接受結果"
 
 #: 
 msgid "FILENAME"
-msgstr ""
+msgstr "遊戲名"
 
 #: 
 msgid "RATING"
-msgstr ""
+msgstr "評分"
 
 #: 
 msgid "TIMES PLAYED"
-msgstr ""
+msgstr "執行次數"
 
 #: 
 msgid "LAST PLAYED"
-msgstr ""
+msgstr "最近執行"
 
 #: 
 msgid "NUMBER OF PLAYERS"
-msgstr ""
+msgstr "遊戲玩家人數"
 
 #: 
 msgid "DEVELOPER"
-msgstr ""
+msgstr "開發商"
 
 #: 
 msgid "GENRE"
-msgstr ""
+msgstr "類型"
 
 #: 
 msgid "SHOW HIDDEN"
-msgstr ""
-
+msgstr "顯示隱藏"
