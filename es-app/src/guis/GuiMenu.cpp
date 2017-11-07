@@ -479,7 +479,8 @@ GuiMenu::GuiMenu(Window *window) : GuiComponent(window), mMenu(window, _("MAIN M
                              // For each activated system
                              std::vector<SystemData *> systems = SystemData::sSystemVector;
                              for (auto system = systems.begin(); system != systems.end(); system++) {
-                                 if ((*system) != SystemData::getFavoriteSystem()) {
+                                 if ((*system) != SystemData::getFavoriteSystem()
+                                        && !(*system)->hasPlatformId(PlatformIds::SYSCONFIG)) {
                                      ComponentListRow systemRow;
                                      auto systemText = std::make_shared<TextComponent>(mWindow, (*system)->getFullName(),
                                                                                        Font::get(FONT_SIZE_MEDIUM),

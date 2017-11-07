@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Add new special platform ID for custom config scripts (eg. compatibility with retropiemenu)
 - Ignore all known bios and devices for arcade/neogeo platform
 - Fix Bug with small SHARE partition
 - Add new Traditional Chinese Language

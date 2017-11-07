@@ -227,3 +227,23 @@ EmulationStation where:
   <theme>psp</theme>
 </system>
 ```
+
+## System custom scripts / config
+
+### [sysconfig]
+
+You can create a "gamelist" which contains scripts.
+You could imagine a script wraper to handle .sh .py, and others...
+You could specify "sudo" in &lt;command&gt;, and imagine lot of things.
+As for your games, you can add &lt;image&gt; in your gamelist.xml to add some icons.
+
+``` xml
+<system>
+  <name>myconfig</name>
+  <fullname>Configuration</fullname>
+  <path>/path/to/scripts</path>
+  <extension>.sh</extension>
+  <command>bash %ROM </dev/tty >/dev/tty</command>
+  <platform>sysconfig</platform>
+</system>
+```

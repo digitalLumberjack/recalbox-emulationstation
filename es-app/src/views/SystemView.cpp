@@ -247,7 +247,9 @@ void SystemView::onCursorChanged(const CursorState& state)
 	// also change the text after we've fully faded out
 	setAnimation(infoFadeOut, 0, [this, gameCount, favoritesCount, gameNoHiddenCount, hiddenCount] {
 		char strbuf[256];
-		if(favoritesCount == 0 && hiddenCount == 0) {
+		if (getSelected()->hasPlatformId(PlatformIds::SYSCONFIG)) {
+			snprintf(strbuf, 256, "%s", _("CONFIGURATION").c_str());
+		}else if(favoritesCount == 0 && hiddenCount == 0) {
 			snprintf(strbuf, 256, ngettext("%i GAME AVAILABLE", "%i GAMES AVAILABLE", gameNoHiddenCount).c_str(), gameNoHiddenCount);
 		}else if (favoritesCount != 0 && hiddenCount == 0) {
 			snprintf(strbuf, 256,

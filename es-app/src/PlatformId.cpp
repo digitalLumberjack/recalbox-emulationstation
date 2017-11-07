@@ -76,6 +76,8 @@ namespace PlatformIds
 		"zx81",
 		"moonlight",
 
+		"sysconfig", //Specific external script handler for configuration
+
 		"ignore", // do not allow scraping for this system
 		"invalid"
 	};

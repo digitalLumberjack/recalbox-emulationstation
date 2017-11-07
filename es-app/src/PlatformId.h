@@ -76,6 +76,8 @@ namespace PlatformIds
 		ZX_81,
 		MOONLIGHT,
 
+		SYSCONFIG, //Specific external script handler for configuration
+
 		PLATFORM_IGNORE, // do not allow scraping for this system
 		PLATFORM_COUNT
 	};
