@@ -42,7 +42,7 @@ msgstr "JUGADORES"
 
 #: 
 msgid "NO GAMES FOUND - SKIP"
-msgstr "NO SE ENCONTRARON JUEGOS - SALTAR"
+msgstr "NO SE ENCONTRARON JUEGOS - OMITIR"
 
 #: 
 msgid "RETRY"
@@ -50,7 +50,7 @@ msgstr "REINTENTAR"
 
 #: 
 msgid "SKIP"
-msgstr "SALTAR"
+msgstr "OMITIR"
 
 #: 
 msgid "SEARCH FOR"
@@ -82,7 +82,7 @@ msgstr "BUSCAR"
 
 #: 
 msgid "STOP"
-msgstr "PARAR"
+msgstr "DETENER"
 
 #: 
 msgid "stop (progress saved)"
@@ -105,8 +105,8 @@ msgstr "¡NO SE HA ENCONTRADO NINGÚN SISTEMA!\n"
 #: 
 msgid "%i GAME SUCCESSFULLY SCRAPED!"
 msgid_plural "%i GAMES SUCCESSFULLY SCRAPED!"
-msgstr[0] "¡%i JUEGO OBTENIDO CORRECTAMENTE!"
-msgstr[1] "¡%i JUEGOS OBTENIDOS CORRECTAMENTE!"
+msgstr[0] "¡%i INFORMACION DE JUEGO DESCARGADA CORRECTAMENTE!"
+msgstr[1] "¡%i INFORMACION DE LOS JUEGOS DESCARGADA CORRECTAMENTE!"
 
 #: 
 msgid "%i GAME SKIPPED."
@@ -133,7 +133,7 @@ msgstr "GUARDAR"
 #: 
 msgid "THIS WILL DELETE A FILE!\n"
 "ARE YOU SURE?"
-msgstr "SE VA A BORRAR EL ARCHIVO\n"
+msgstr "SE ELIMINARA EL ARCHIVO\n"
 "¿ESTÁS SEGURO?"
 
 #: 
@@ -146,7 +146,7 @@ msgstr "NO"
 
 #: 
 msgid "DELETE"
-msgstr "BORRAR"
+msgstr "ELIMINAR"
 
 #: 
 msgid "SAVE CHANGES?"
@@ -166,7 +166,7 @@ msgstr "MENÚ PRINCIPAL"
 
 #: 
 msgid "KODI MEDIA CENTER"
-msgstr "KODI MEDIA CENTER"
+msgstr "CENTRO MULTIMEDIA KODI"
 
 #: 
 msgid "SYSTEM SETTINGS"
@@ -178,7 +178,7 @@ msgstr "VERSIÓN"
 
 #: 
 msgid "DISK USAGE"
-msgstr "ESPACIO DISPONIBLE"
+msgstr "ESPACIO LIBRE"
 
 #: 
 msgid "STORAGE DEVICE"
@@ -267,11 +267,11 @@ msgstr "REFORZAR SEGURIDAD"
 
 #: 
 msgid "ROOT PASSWORD"
-msgstr "CONTRASEÑA ROOT"
+msgstr "CONTRASEÑA DE ROOT"
 
 #: 
 msgid "THE SYSTEM WILL NOW REBOOT"
-msgstr "EL SISTEMA VA A REINICIARSE"
+msgstr "EL SISTEMA SE REINICIARA"
 
 #: 
 msgid "GAMES SETTINGS"
@@ -295,7 +295,7 @@ msgstr "GUARDAR/CARGAR AUTOMÁTICAMENTE"
 
 #: 
 msgid "SHADERS SET"
-msgstr "JUEGO DE SHADERS"
+msgstr "ELEGIR SHADERS"
 
 #: 
 msgid "SCANLINES"
@@ -447,7 +447,7 @@ msgstr "WIFI ACTIVADO"
 
 #: 
 msgid "WIFI CONFIGURATION ERROR"
-msgstr "ERROR DE CONFIGURACIÓN WIFI"
+msgstr "ERROR DE CONFIGURACIÓN DEL WIFI"
 
 #: 
 msgid "SCRAPER"
@@ -471,7 +471,7 @@ msgstr "SALIR"
 
 #: 
 msgid "REALLY RESTART?"
-msgstr "¿REINICIAR?"
+msgstr "¿ESTA SEGURO DE REINICIAR?"
 
 #: 
 msgid "RESTART SYSTEM"
